@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Brand &#8212; Agile Sports Marketing Studio, London</title>
+  <link rel="icon" type="image/png" href="images/favi.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ─────────────────────────────────────────────
+       TOKENS
+    ───────────────────────────────────────────── */
+    :root {
+      --bg:          #080809;
+      --bg-2:        #0f0f11;
+      --bg-3:        #161618;
+      --bg-card:     #141416;
+      --border:      rgba(255,255,255,0.07);
+      --border-h:    rgba(255,255,255,0.14);
+      --text-1:      #ffffff;
+      --text-2:      #a1a1aa;
+      --text-3:      #52525b;
+      --accent:      #C8E334;
+      --accent-glow: rgba(200,227,52,0.25);
+      --accent-sub:  rgba(200,227,52,0.08);
+      --r-sm: 6px;
+      --r-md: 12px;
+      --r-lg: 18px;
+      --r-xl: 24px;
+      --font-d: 'Inter Tight', system-ui, sans-serif;
+      --font-b: 'Inter', system-ui, sans-serif;
+      --font-m: 'IBM Plex Mono', monospace;
+      --nav-h: 72px;
+    }
+
+    /* ─────────────────────────────────────────────
+       RESET
+    ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-b);
+      background: var(--bg);
+      color: var(--text-1);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; }
+    img { display: block; max-width: 100%; }
+
+    /* Dot grid */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 0);
+      background-size: 56px 56px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Selection */
+    ::selection { background: var(--accent-sub); color: var(--accent); }
+
+    /* ─────────────────────────────────────────────
+       SCROLL REVEAL
+    ───────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─────────────────────────────────────────────
+       NAV
+    ───────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 900;
+      display: flex; align-items: center;
+      justify-content: center;
+      padding: 0 60px;
+      background: rgba(8,8,9,0);
+      border-bottom: 1px solid transparent;
+      transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+    }
+    .nav.scrolled {
+      background: rgba(8,8,9,0.85);
+      border-color: var(--border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    .nav-logo {
+      font-family: var(--font-d);
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.03em;
+      color: var(--text-1);
+      flex-shrink: 0;
+      position: absolute;
+      left: 60px;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex; align-items: center;
+      list-style: none;
+      position: relative;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 5px;
+      gap: 0;
+      flex-wrap: nowrap;
+      margin: 0;
+    }
+    .nav-links li { position: relative; }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-2);
+      transition: color 0.3s;
+      letter-spacing: 0.01em;
+      padding: 10px 24px;
+      display: block;
+      position: relative;
+      z-index: 2;
+      border-radius: 100px;
+      white-space: nowrap;
+      text-align: center;
+    }
+    .nav-links a:hover { color: var(--text-1); }
+    .nav-links a.active { color: #080809; font-weight: 600; }
+
+    /* Animated nav indicator */
+    .nav-indicator {
+      position: absolute;
+      height: calc(100% - 10px);
+      background: var(--accent);
+      border-radius: 100px;
+      transition: all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+      z-index: 1;
+      top: 5px;
+      left: 0;
+      width: 0;
+      pointer-events: none;
+    }
+    .nav-cta {
+      background: var(--accent);
+      color: #080809;
+      font-family: var(--font-d);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      border-radius: var(--r-sm);
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+      flex-shrink: 0;
+      position: absolute;
+      right: 60px;
+    }
+    .nav-cta:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      background: none;
+      padding: 4px;
+      position: absolute;
+      right: 60px;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--text-1);
+      transition: all 0.3s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .nav-drawer {
+      display: none;
+      position: fixed; top: var(--nav-h); left: 0; right: 0;
+      background: rgba(8,8,9,0.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      z-index: 899;
+      padding: 24px 24px 32px;
+      flex-direction: column; gap: 4px;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      padding: 14px 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-drawer a:last-child { border-bottom: none; }
+    .nav-drawer a:hover { color: var(--text-1); }
+    .nav-drawer .nav-cta {
+      margin-top: 16px;
+      text-align: center;
+      display: block;
+      color: #080809;
+      position: static;
+      border-bottom: none;
+      padding: 14px 24px;
+    }
+
+    /* ─────────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 60px 80px;
+      overflow: hidden;
+    }
+
+    /* Video background */
+    .hero-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      opacity: 0.6;
+    }
+    .hero-video-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(8,8,9,0.3) 0%, rgba(8,8,9,0.7) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Gradient orb */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -10%; right: -5%;
+      width: 60vw; height: 60vw;
+      background: radial-gradient(circle, rgba(200,227,52,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 220px;
+      background: linear-gradient(to top, var(--bg), transparent);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-m);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      display: flex; align-items: center; gap: 12px;
+      position: relative; z-index: 2;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-headline {
+      font-family: var(--font-d);
+      font-size: clamp(48px, 7vw, 96px);
+      font-weight: 900;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      max-width: 980px;
+      position: relative; z-index: 2;
+      margin-bottom: 32px;
+    }
+    .hero-headline .accent { color: var(--accent); display: block; }
+
+    .hero-sub {
+      font-size: clamp(16px, 1.6vw, 20px);
+      color: var(--text-2);
+      max-width: 520px;
+      line-height: 1.65;
+      position: relative; z-index: 2;
+      margin-bottom: 48px;
+    }
+
+    .hero-actions {
+      display: flex; align-items: center; gap: 16px;
+      position: relative; z-index: 1;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #080809;
+      font-family: var(--font-d);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border-radius: var(--r-sm);
+      border: none;
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+      display: inline-flex; align-items: center; gap: 10px;
+    }
+    .btn-primary:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px var(--accent-glow);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-2);
+      font-family: var(--font-d);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 16px 28px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border-h);
+      transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 10px;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px; right: 60px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      font-family: var(--font-m);
+      font-size: 10px;
+      color: var(--text-3);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, var(--border-h), transparent);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); transform-origin: top; }
+      50% { opacity: 1; }
+    }
+
+    /* ─────────────────────────────────────────────
+       STATS BAR
+    ───────────────────────────────────────────── */
+    .stats-bar {
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 40px 60px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative; z-index: 1;
+    }
+    .stat-item {
+      padding: 0 40px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:first-child { padding-left: 0; }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--font-d);
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--text-1);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-num span { color: var(--accent); }
+    .stat-label {
+      font-family: var(--font-m);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-3);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* ─────────────────────────────────────────────
+       SECTION COMMON
+    ───────────────────────────────────────────── */
+    .section {
+      padding: 120px 60px;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: var(--font-m);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-label::before {
+      content: '';
+      width: 20px; height: 1px;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+    .section-title {
+      font-family: var(--font-d);
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+    .section-title .accent { color: var(--accent); }
+    .section-sub {
+      font-size: 18px;
+      color: var(--text-2);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 64px;
+    }
+    .section-head-left { flex: 1; max-width: 640px; }
+
+    /* AI tag */
+    .ai-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-m);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: var(--r-sm);
+      background: var(--accent-sub);
+      border: 1px solid rgba(200,227,52,0.3);
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      vertical-align: middle;
+      margin-left: 12px;
+    }
+    .ai-tag::before { content: '◆'; font-size: 7px; }
+
+    /* ─────────────────────────────────────────────
+       WHY — TWO COL
+    ───────────────────────────────────────────── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .four-col { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+    .pain-list { list-style: none; }
+    .pain-item {
+      display: flex; align-items: flex-start; gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pain-item:last-child { border-bottom: none; }
+    .pain-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 10px;
+      flex-shrink: 0;
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+    .pain-text {
+      font-size: 17px;
+      color: var(--text-2);
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .answer-box {
+      background: var(--bg-card);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 var(--r-lg) var(--r-lg) 0;
+      padding: 32px 36px;
+      font-size: 19px;
+      color: var(--text-2);
+      line-height: 1.7;
+      position: relative;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+    }
+    .answer-box strong { color: var(--text-1); font-weight: 600; }
+
+    /* ─────────────────────────────────────────────
+       STORY — IMAGE + TEXT
+    ───────────────────────────────────────────── */
+    .img-placeholder {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-3);
+      font-family: var(--font-m);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .img-placeholder::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent 40%, var(--accent-sub));
+    }
+    .img-placeholder:hover { border-color: rgba(200,227,52,0.3); }
+
+    .story-body {
+      font-size: 17px;
+      color: var(--text-2);
+      line-height: 1.85;
+    }
+    .story-body p + p { margin-top: 20px; }
+    .story-note {
+      margin-top: 28px;
+      font-family: var(--font-m);
+      font-size: 11px;
+      color: var(--text-3);
+      padding: 12px 16px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .story-note::before { content: '→'; color: var(--accent); }
+
+    /* ─────────────────────────────────────────────
+       PILLAR CARDS
+    ───────────────────────────────────────────── */
+    .pillar-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .pillar-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .pillar-card:hover { border-color: var(--border-h); transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.35); }
+    .pillar-card:hover::before { opacity: 1; }
+    .pillar-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--r-sm);
+      background: var(--accent-sub);
+      border: 1px solid rgba(200,227,52,0.2);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+    }
+    .pillar-icon svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
+    .pillar-name {
+      font-family: var(--font-d);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .pillar-body {
+      font-size: 15px;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+    .pillar-ai {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-m);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ─────────────────────────────────────────────
+       WORK — CASE CARDS
+    ───────────────────────────────────────────── */
+    .case-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .case-card:hover { border-color: var(--border-h); transform: translateY(-6px); box-shadow: 0 24px 56px rgba(0,0,0,0.4); }
+    .case-img {
+      height: 220px;
+      background: var(--bg-3);
+      position: relative;
+      overflow: hidden;
+    }
+    .case-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .case-img::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, transparent, rgba(200,227,52,0.07));
+      z-index: 1;
+    }
+    .case-img-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 80px;
+      background: linear-gradient(to top, var(--bg-card), transparent);
+    }
+    .case-content { padding: 28px; }
+    .case-client {
+      font-family: var(--font-m);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .case-title {
+      font-family: var(--font-d);
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+    .case-body {
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+
+    /* Logo strip */
+    .logo-strip {
+      display: flex; align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 56px;
+      margin-top: 56px;
+      border-top: 1px solid var(--border);
+    }
+    .logo-label {
+      width: 100%;
+      font-family: var(--font-m);
+      font-size: 11px;
+      color: var(--text-3);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .logo-box {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 14px 32px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-3);
+      letter-spacing: 0.03em;
+      filter: grayscale(1) opacity(0.5);
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-box:hover { filter: grayscale(0) opacity(1); border-color: var(--border-h); color: var(--text-2); }
+    .logo-box img { filter: none; opacity: 1; }
+
+    /* ─────────────────────────────────────────────
+       SOCIAL PROOF
+    ───────────────────────────────────────────── */
+    .quote-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 48px 44px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .quote-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 20px; left: 28px;
+      font-family: var(--font-d);
+      font-size: 140px;
+      color: var(--accent);
+      opacity: 0.06;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .quote-card:hover { border-color: var(--border-h); transform: translateY(-4px); box-shadow: 0 20px 48px rgba(0,0,0,0.3); }
+    .quote-text {
+      font-size: 20px;
+      color: var(--text-1);
+      line-height: 1.55;
+      font-weight: 500;
+      margin-bottom: 24px;
+      position: relative; z-index: 1;
+    }
+    .quote-attr {
+      font-family: var(--font-m);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    /* ─────────────────────────────────────────────
+       TRIBE
+    ───────────────────────────────────────────── */
+    .tribe-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .tribe-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 48px; height: 2px;
+      background: var(--accent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .tribe-card:hover { border-color: var(--border-h); transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.3); }
+    .tribe-card:hover::after { opacity: 1; }
+
+    .tribe-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: var(--bg-3);
+      overflow: hidden;
+      position: relative;
+    }
+    .tribe-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .tribe-content {
+      padding: 32px 28px 36px;
+    }
+    .tribe-name {
+      font-family: var(--font-d);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .tribe-role {
+      font-family: var(--font-m);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .tribe-bio {
+      font-size: 15px;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
+
+    .network-banner {
+      margin-top: 40px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 32px 44px;
+      font-size: 17px;
+      color: var(--text-2);
+      line-height: 1.7;
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* ─────────────────────────────────────────────
+       CONTACT
+    ───────────────────────────────────────────── */
+    .contact-section { background: var(--bg-2); }
+
+    .contact-headline {
+      font-family: var(--font-d);
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .contact-sub {
+      font-size: 17px;
+      color: var(--text-2);
+      line-height: 1.7;
+      margin-bottom: 40px;
+      max-width: 420px;
+    }
+    .contact-links {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .contact-link {
+      display: flex; align-items: center; gap: 14px;
+      font-size: 16px;
+      color: var(--text-2);
+      transition: color 0.2s;
+    }
+    .contact-link:hover { color: var(--accent); }
+    .contact-link-icon {
+      width: 36px; height: 36px;
+      border-radius: var(--r-sm);
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-link-icon svg { width: 15px; height: 15px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
+
+    .form-wrap {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 48px 44px;
+    }
+    .form-row { margin-bottom: 20px; }
+    .form-label {
+      font-family: var(--font-m);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .form-input {
+      width: 100%;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      height: 52px;
+      padding: 0 18px;
+      font-family: var(--font-b);
+      font-size: 15px;
+      color: var(--text-1);
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .form-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-sub);
+    }
+    .form-textarea {
+      height: 140px;
+      padding: 16px 18px;
+      resize: vertical;
+    }
+    .form-input::placeholder { color: var(--text-3); }
+    textarea.form-input { line-height: 1.6; }
+
+    /* ─────────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────────── */
+    .footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 48px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .footer-logo {
+      font-family: var(--font-d);
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.03em;
+    }
+    .footer-logo span { color: var(--accent); }
+    .footer-copy {
+      font-family: var(--font-m);
+      font-size: 11px;
+      color: var(--text-3);
+      letter-spacing: 0.05em;
+    }
+    .footer-links {
+      display: flex; gap: 24px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-3);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text-2); }
+
+    /* ─────────────────────────────────────────────
+       DIVIDER
+    ───────────────────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 56px 0;
+    }
+
+    /* Section note */
+    .section-note {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 20px;
+      font-family: var(--font-m);
+      font-size: 11px;
+      color: var(--text-3);
+      padding: 10px 16px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+    }
+    .section-note::before { content: '→'; color: var(--accent); }
+
+    /* ─────────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(3) { border-right: 1px solid var(--border); padding-left: 0; }
+      .four-col { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* Tablets and mobile - show hamburger only */
+    @media (max-width: 1024px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; right: 40px; }
+      .nav-logo { left: 40px; }
+      .nav-logo img { height: 40px; }
+      .nav { padding: 0 40px; }
+      .section { padding: 80px 40px; }
+      .hero { padding: 0 40px 72px; }
+      .stats-bar { padding: 32px 40px; }
+      .two-col { grid-template-columns: 1fr; gap: 48px; }
+      .three-col { grid-template-columns: 1fr; }
+      .footer { padding: 36px 40px; }
+    }
+
+    /* Small tablets */
+    @media (max-width: 767px) {
+      .nav-logo img { height: 36px; }
+      .nav-hamburger { right: 32px; }
+      .nav-logo { left: 32px; }
+      .nav { padding: 0 32px; }
+    }
+
+    /* Phones (< 640px) */
+    @media (max-width: 640px) {
+      .nav { padding: 0 20px; }
+      .nav-logo img { height: 32px; }
+      .nav-hamburger { right: 20px; }
+      .nav-logo { left: 20px; }
+      .section { padding: 64px 20px; }
+      .hero { padding: 0 20px 64px; }
+      .scroll-hint { display: none; }
+      .stats-bar { padding: 28px 20px; grid-template-columns: 1fr 1fr; }
+      .stat-item { padding: 0 20px; }
+      .stat-item:first-child { padding-left: 0; }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(3) { padding-left: 0; border-right: 1px solid var(--border); }
+      .stat-num { font-size: 36px; }
+      .four-col { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
+      .form-wrap { padding: 32px 24px; }
+      .footer { flex-direction: column; padding: 32px 24px; gap: 16px; }
+      .footer-links { gap: 16px; flex-wrap: wrap; }
+      .quote-card { padding: 32px 28px; }
+      .tribe-img { max-height: 280px; aspect-ratio: auto; }
+      .tribe-img img { object-fit: contain; }
+      .tribe-content { padding: 24px 20px 28px; }
+      .logo-box img { height: 40px !important; }
+    }
+
+    /* ─────────────────────────────────────────────
+       LOADER
+    ───────────────────────────────────────────── */
+    .loader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    .loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .loader-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      animation: loaderFadeIn 0.8s ease forwards;
+    }
+    .loader-img {
+      width: 300px;
+      height: auto;
+      animation: loaderPulse 1.2s ease-in-out 2;
+    }
+    .loader-bar {
+      width: 120px;
+      height: 1px;
+      background: var(--border);
+      border-radius: 1px;
+      overflow: hidden;
+      animation: loaderFadeIn 0.8s ease 0.5s both;
+    }
+    .loader-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 1px;
+      animation: loaderBarFill 1.8s ease forwards;
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+    @keyframes loaderFadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes loaderPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(0.97); }
+    }
+    @keyframes loaderBarFill {
+      from { width: 0%; }
+      to { width: 100%; }
+    }
+
+    /* ─────────────────────────────────────────────
+       CMS UTILITY CLASSES - for clean content management
+    ───────────────────────────────────────────── */
+    .cms-logo { height: 48px; width: auto; display: block; }
+    .cms-logo--nav { height: 48px; }
+    .cms-logo--footer { height: 40px; }
+    .cms-img-full { width: 100%; height: 420px; object-fit: cover; border-radius: var(--r-lg); display: block; }
+    .cms-img-tribe { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cms-client-logo { height: 100px; width: auto; filter: none; opacity: 1; }
+    .cms-client-logo--nb { height: 70px; }
+    .cms-kaizen-badge {
+      margin-top: 28px;
+      padding: 20px 24px;
+      background: rgba(200,227,52,0.08);
+      border: 1px solid var(--accent);
+      border-radius: var(--r-md);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .cms-kaizen-char {
+      font-size: 32px;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+    .cms-kaizen-text {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.5;
+    }
+    .cms-case-label {
+      margin-bottom: 10px;
+      font-size: 13px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-family: var(--font-m);
+    }
+    .cms-case-p { margin-bottom: 12px; }
+    .cms-placeholder-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .cms-placeholder-text {
+      font-family: var(--font-m);
+      font-size: 11px;
+      color: var(--text-3);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+    .cms-story-highlight { color: var(--accent); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- ──────────────────── LOADER ──────────────────── -->
+  <div class="loader" id="loader">
+    <div class="loader-logo">
+      <img src="images/loader.png" alt="Project Brand" class="loader-img">
+    </div>
+  </div>
+
+
+  <!-- ──────────────────── NAV ──────────────────── -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+    <a href="#home" class="nav-logo" data-cms-field="nav-logo">
+      <img src="images/logo1.png" alt="Project Brand" class="cms-logo cms-logo--nav">
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <div class="nav-indicator" id="navIndicator"></div>
+      <li><a href="#home" data-nav="home">Home</a></li>
+      <li><a href="#why" data-nav="why">Why Us</a></li>
+      <li><a href="#story" data-nav="story">Our Story</a></li>
+      <li><a href="#what" data-nav="what">What We Do</a></li>
+      <li><a href="#work" data-nav="work">Our Work</a></li>
+      <li><a href="#tribe" data-nav="tribe">The Tribe</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Let's Talk</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile drawer -->
+  <div class="nav-drawer" id="drawer">
+    <a href="#home" onclick="closeDrawer()">Home</a>
+    <a href="#why" onclick="closeDrawer()">Why Us</a>
+    <a href="#story" onclick="closeDrawer()">Our Story</a>
+    <a href="#what" onclick="closeDrawer()">What We Do</a>
+    <a href="#work" onclick="closeDrawer()">Our Work</a>
+    <a href="#tribe" onclick="closeDrawer()">The Tribe</a>
+    <a href="#contact" class="nav-cta" onclick="closeDrawer()">Let's Talk</a>
+  </div>
+
+  <main>
+
+    <!-- ──────────────────── HERO ──────────────────── -->
+    <section class="hero" id="home">
+      <video class="hero-video" autoplay muted loop playsinline>
+        <source src="videos/hero.mp4" type="video/mp4">
+      </video>
+      <div class="hero-video-overlay"></div>
+      <div class="hero-eyebrow">Sports Marketing Studio &mdash; London</div>
+      <h1 class="hero-headline">
+        Sport doesn't stand still.
+        <span class="accent">Neither do we.</span>
+      </h1>
+      <p class="hero-sub">An agile sports marketing studio powered by sharp strategy, smart AI tools, and serious experience.</p>
+      <div class="scroll-hint">Scroll</div>
+    </section>
+
+    <!-- ──────────────────── STATS BAR ──────────────────── -->
+    <div class="stats-bar">
+      <div class="stat-item reveal">
+        <div class="stat-num">20<span>+</span></div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-num">4<span>x</span></div>
+        <div class="stat-label">Global Brands</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Continents Active</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <div class="stat-num">AI<span>↗</span></div>
+        <div class="stat-label">Enhanced Output</div>
+      </div>
+    </div>
+
+    <!-- ──────────────────── WHY ──────────────────── -->
+    <section class="section" id="why">
+      <div class="section-inner">
+        <div class="section-head">
+          <div class="section-head-left reveal">
+            <div class="section-label">Why Us</div>
+            <h2 class="section-title">WHY US? BECAUSE WE&#39;VE BEEN ON YOUR SIDE OF THE TABLE.</h2>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="reveal">
+            <ul class="pain-list">
+              <li class="pain-item"><div class="pain-dot"></div><div class="pain-text">Most sports marketers know one side of the table. We&#39;ve sat on all of them &#8212; brand, rights holder, agency, athlete. It means we know what your partners need, what your fans expect, and what actually drives commercial results.</div></li>
+              <li class="pain-item"><div class="pain-dot"></div><div class="pain-text">We built Project Brand to do things differently. <strong style="color:var(--text-1);">Lean team. Senior people. AI tools</strong> that speed up the boring stuff so we can focus on the work that actually matters &#8212; strategy and storytelling that drive results.</div></li>
+              <li class="pain-item"><div class="pain-dot"></div><div class="pain-text">We&#39;re <strong style="color:var(--text-1);">virtual</strong>, which means no office overhead landing on your invoice. We&#39;re <strong style="color:var(--text-1);">global</strong>, which means we work across time zones and markets. And we&#39;re <strong style="color:var(--text-1);">agile</strong>, which means a typical project flows from first conversation to delivery without the six-week onboarding most agencies need before they even understand your sport.</div></li>
+            </ul>
+          </div>
+          <div class="reveal reveal-delay-2" style="display:flex; align-items:center;">
+            <div class="answer-box" style="font-size:22px; line-height:1.6; font-weight:500; color:var(--text-1);">
+              We know sport. We know marketing. We know what it takes to make both work together &#8212; faster, leaner, and smarter than any traditional agency ever could.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────────── STORY ──────────────────── -->
+    <section class="section" id="story" style="background: var(--bg-2);">
+      <div class="section-inner">
+        <div class="section-head">
+          <div class="section-head-left reveal">
+            <div class="section-label">Our Story</div>
+            <h2 class="section-title">ROOTED IN JAPAN. BUILT FOR THE WORLD.</h2>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="reveal" data-cms-field="story-image">
+            <img src="images/ourstory.jpg" alt="Our Story - Japan" class="cms-img-full">
+          </div>
+          <div class="reveal reveal-delay-2">
+            <div class="story-body" data-cms-field="story-content">
+              <p>Project Brand was born in Tokyo in 2020 &#8212; from a leap of faith and two decades of sports marketing experience that needed a new home.</p>
+              <p>Our founder Sarah spent years working across global brands, rights holders, and sporting bodies &#8212; from the Springboks to ASICS (three years at HQ in Tokyo) to adidas Running. Along the way she kept bumping into the same problem: sports brands either overpay for big agency overhead or underpay for freelancers who don&#39;t know the industry.</p>
+              <p>So she built something in between. A studio inspired by <span class="cms-story-highlight">改善 Kaizen</span> &#8212; the Japanese philosophy of continuous improvement. Which basically means we&#39;re never done getting better. Sounds intense. It is. But it works.</p>
+              <div class="cms-kaizen-badge">
+                <div class="cms-kaizen-char">改善</div>
+                <div class="cms-kaizen-text">
+                  <strong style="color: var(--accent); display: block; margin-bottom: 4px;">KAIZEN</strong>
+                  Continuous improvement. Small steps, big gains.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────────── WHAT WE DO ──────────────────── -->
+    <section class="section" id="what">
+      <div class="section-inner">
+        <div class="section-head">
+          <div class="section-head-left reveal">
+            <div class="section-label">What We Do</div>
+            <h2 class="section-title">WHAT WE&#39;RE GOOD AT.</h2>
+            <p class="section-sub">Four areas. All powered by AI where it makes sense &#8212; and always backed by people who know sport inside out.</p>
+          </div>
+        </div>
+        <div class="four-col">
+          <div class="pillar-card reveal">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="pillar-name">Strategy</div>
+            <div class="pillar-body">We don&#39;t do strategy decks that collect dust. We build plans you can actually use &#8212; across marketing, content, sponsorship, sales, and go-to-market. We use AI to accelerate the research and sharpen the insights, so you get to the good stuff faster.</div>
+            <div class="pillar-ai">AI-powered research, briefs &amp; creative</div>
+          </div>
+          <div class="pillar-card reveal reveal-delay-1">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <div class="pillar-name">Digital</div>
+            <div class="pillar-body">Your brand lives online whether you like it or not. We make sure it shows up well &#8212; compelling messaging, digital campaigns, websites that actually work, and SEO that earns attention. Built around what your audience cares about, not what looks good in a pitch.</div>
+          </div>
+          <div class="pillar-card reveal reveal-delay-2">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </div>
+            <div class="pillar-name">Creative</div>
+            <div class="pillar-body">Ideas are easy. Execution is everything. We handle brand development, campaign creative, photography, videography, and content production &#8212; pulling from a global network of talent we trust. If it needs to look good and land hard, that&#39;s us.</div>
+          </div>
+          <div class="pillar-card reveal reveal-delay-3">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="pillar-name">Management</div>
+            <div class="pillar-body">Someone needs to keep the trains running. We handle project management, event coordination, timelines, budgets, and athlete concierge &#8212; so you can focus on the big picture while we take care of the details.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────────── OUR WORK ──────────────────── -->
+    <section class="section" id="work" style="background: var(--bg-2);">
+      <div class="section-inner">
+        <div class="section-head">
+          <div class="section-head-left reveal">
+            <div class="section-label">Our Work</div>
+            <h2 class="section-title">SOME THINGS WE&#39;VE DONE.</h2>
+          </div>
+        </div>
+        <div class="three-col">
+          <div class="case-card reveal">
+            <div class="case-img"><img src="images/work1.jpg" alt="URC Rugby Partnership"></div>
+            <div class="case-img-overlay"></div>
+            <div class="case-content">
+              <div class="case-client">Rugby &#8212; URC</div>
+              <div class="case-title">Commercial Partnership Programme</div>
+              <div class="case-body">
+                <p class="cms-case-label">The challenge</p>
+                <p class="cms-case-p">A leading rugby competition needed to build a partnership activation programme that could demonstrate real value to commercial partners &#8212; and fast.</p>
+                <p class="cms-case-label">What we did</p>
+                <p class="cms-case-p">Developed the partnership strategy from scratch, created activation plans tied to measurable KPIs, and managed partner relationships across the full commercial calendar.</p>
+                <p class="cms-case-label">The result</p>
+                <p>A structured commercial programme that gave partners clarity, confidence, and a reason to stay. Helped shape how the organisation approached partnership value long-term.</p>
+              </div>
+            </div>
+          </div>
+          <div class="case-card reveal reveal-delay-1">
+            <div class="case-img"><img src="images/work2.jpg" alt="Habarii Media"></div>
+            <div class="case-img-overlay"></div>
+            <div class="case-content">
+              <div class="case-client">Media &#8212; Habarii Media</div>
+              <div class="case-title">Commercial Revenue Strategy</div>
+              <div class="case-body">
+                <p class="cms-case-label">The challenge</p>
+                <p class="cms-case-p">A fast-growing sports media business needed commercial proposals that could land serious partnerships &#8212; the kind that move a business forward, not just keep the lights on.</p>
+                <p class="cms-case-label">What we did</p>
+                <p class="cms-case-p">Built out the commercial revenue decks and partnership proposals from the ground up. Positioned the business as a credible, high-value partner for brands looking to reach engaged sports audiences.</p>
+                <p class="cms-case-label">The result</p>
+                <p>Proposals valued at R2.5 million &#8212; and they landed. Multiple partnerships secured, with clients feeding back that the quality of the proposal itself was what got them over the line.</p>
+              </div>
+            </div>
+          </div>
+          <div class="case-card reveal reveal-delay-2">
+            <div class="case-img"><img src="images/work3.jpg" alt="Adidas Product Launch"></div>
+            <div class="case-img-overlay"></div>
+            <div class="case-content">
+              <div class="case-client">Sportswear &#8212; Adidas</div>
+              <div class="case-title">Product Franchise Launch</div>
+              <div class="case-body">
+                <p class="cms-case-label">The challenge</p>
+                <p class="cms-case-p">One of the world&#39;s biggest sportswear brands was launching their fastest running franchise &#8212; and needed global communications that could land across markets, retail, and digital simultaneously.</p>
+                <p class="cms-case-label">What we did</p>
+                <p class="cms-case-p">Led global communications strategy for the franchise launch. Built the campaign narrative, developed sell-in and sell-out toolkits, and ensured a seamless retail experience from global brief to local execution.</p>
+                <p class="cms-case-label">The result</p>
+                <p>A product launch that landed with consistency and impact across multiple markets &#8212; with the comms strategy doing the heavy lifting from day one.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="logo-strip">
+          <div class="logo-label">Clients &amp; Partners</div>
+          <div class="logo-box"><img src="images/Adidas-Logo-1.png" alt="Adidas" class="cms-client-logo"></div>
+          <div class="logo-box"><img src="images/Springboks-logo.png" alt="Springboks" class="cms-client-logo"></div>
+          <div class="logo-box"><img src="images/United-Rugby-Championship-Logo.png" alt="URC" class="cms-client-logo"></div>
+          <div class="logo-box"><img src="images/Habarii-Media-Logo.png" alt="Habarii Media" class="cms-client-logo"></div>
+          <div class="logo-box"><img src="images/New-Balance-Logo.png" alt="New Balance" class="cms-client-logo cms-client-logo--nb"></div>
+          <div class="logo-box"><img src="images/YMS-Logo-1.png" alt="YMS" class="cms-client-logo"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────────── SOCIAL PROOF ──────────────────── -->
+    <section class="section" id="proof">
+      <div class="section-inner">
+        <div class="section-head">
+          <div class="section-head-left reveal">
+            <div class="section-label">What Clients Say</div>
+            <h2 class="section-title">The work speaks.</h2>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="quote-card reveal">
+            <div class="quote-text">&#8220;The quality of the proposal was what got us over the line.&#8221;</div>
+            <div class="quote-attr">Sports Media Client</div>
+          </div>
+          <div class="quote-card reveal reveal-delay-2 cms-placeholder-center" style="border-style:dashed;opacity:0.4;">
+            <div class="cms-placeholder-text">Second testimonial coming soon</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────────── TRIBE ──────────────────── -->
+    <section class="section" id="tribe" style="background: var(--bg-2);">
+      <div class="section-inner">
+        <div class="section-head">
+          <div class="section-head-left reveal">
+            <div class="section-label">The Tribe</div>
+            <h2 class="section-title">THE PEOPLE BEHIND THE WORK.</h2>
+          </div>
+        </div>
+        <div class="three-col">
+          <article class="tribe-card reveal" data-cms-field="tribe-member-1">
+            <div class="tribe-img"><img src="images/Sarah-3.webp" alt="Sarah Mundy" class="cms-img-tribe"></div>
+            <div class="tribe-content">
+              <h3 class="tribe-name">Sarah Mundy</h3>
+              <p class="tribe-role">Founder</p>
+              <p class="tribe-bio">Sports marketer. Strategist. AI enthusiast. Marathon runner and mountain climber &#8212; because sitting still was never really my thing. Sarah&#39;s spent her career across brands, rights holders, and agencies &#8212; from Johannesburg to Tokyo to London &#8212; and built Project Brand to bring all of that experience together in one place. She moves fast, delivers sharp, and genuinely loves this industry.</p>
+            </div>
+          </article>
+          <article class="tribe-card reveal reveal-delay-1" data-cms-field="tribe-member-2">
+            <div class="tribe-img"><img src="images/wesley.jpg" alt="Wesley Tam" class="cms-img-tribe"></div>
+            <div class="tribe-content">
+              <h3 class="tribe-name">Wesley Tam</h3>
+              <p class="tribe-role">Partner</p>
+              <p class="tribe-bio">Bio coming soon.</p>
+            </div>
+          </article>
+          <article class="tribe-card reveal reveal-delay-2" data-cms-field="tribe-member-3">
+            <div class="tribe-img"><img src="images/Maverick.webp" alt="Maverick" class="cms-img-tribe"></div>
+            <div class="tribe-content">
+              <h3 class="tribe-name">Maverick</h3>
+              <p class="tribe-role">Studio Mascot</p>
+              <p class="tribe-bio">Chief morale officer. Terrible at deadlines. Excellent at naps.</p>
+            </div>
+          </article>
+        </div>
+        <div class="network-banner reveal">
+          We also work with a trusted network of specialists across creative, digital, content, and production &#8212; so when a project needs more firepower, we scale up without the agency price tag.
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────────── CONTACT ──────────────────── -->
+    <section class="section contact-section" id="contact">
+      <div class="section-inner">
+        <div class="two-col">
+          <div class="reveal">
+            <div class="section-label">Get In Touch</div>
+            <h2 class="contact-headline">LET&#39;S MAKE SOMETHING WORTH TALKING ABOUT.</h2>
+            <p class="contact-sub">Got a project, a problem, or just a question? Drop us a message. We&#39;re always up for a good conversation about sport, marketing, and where the two are heading.</p>
+            <div class="contact-links">
+              <a href="mailto:sarah@theprojectbrand.com" class="contact-link">
+                <div class="contact-link-icon">
+                  <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                sarah@theprojectbrand.com
+              </a>
+              <a href="#" class="contact-link">
+                <div class="contact-link-icon">
+                  <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                </div>
+                LinkedIn
+              </a>
+              <div class="contact-link">
+                <div class="contact-link-icon">
+                  <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                London, UK &#8212; working globally
+              </div>
+            </div>
+          </div>
+          <div class="reveal reveal-delay-2">
+            <div class="form-wrap">
+              <div class="form-row">
+                <label class="form-label" for="name">Name</label>
+                <input class="form-input" id="name" type="text" placeholder="Your name" autocomplete="name">
+              </div>
+              <div class="form-row">
+                <label class="form-label" for="org">Organisation</label>
+                <input class="form-input" id="org" type="text" placeholder="Where you&#39;re from">
+              </div>
+              <div class="form-row">
+                <label class="form-label" for="email">Email</label>
+                <input class="form-input" id="email" type="email" placeholder="your@email.com" autocomplete="email">
+              </div>
+              <div class="form-row">
+                <label class="form-label" for="msg">Message</label>
+                <textarea class="form-input form-textarea" id="msg" placeholder="Tell us about your project..."></textarea>
+              </div>
+              <button class="btn-primary" style="width:100%;justify-content:center;margin-top:4px;" type="submit">
+                Send message
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ──────────────────── FOOTER ──────────────────── -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-logo" data-cms-field="footer-logo">
+      <img src="images/logo1.png" alt="Project Brand" class="cms-logo cms-logo--footer">
+    </div>
+    <div class="footer-copy" data-cms-field="footer-copyright">&#169; 2026 Project Brand. All Right Reserved</div>
+  </footer>
+
+  <script>
+
+    // ── Loader ──
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const loader = document.getElementById('loader');
+        loader.classList.add('hidden');
+        document.body.style.overflow = '';
+      }, 2000);
+    });
+    document.body.style.overflow = 'hidden';
+
+    // ── Sticky nav ──
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ── Mobile hamburger ──
+    const btn = document.getElementById('hamburger');
+    const drawer = document.getElementById('drawer');
+    btn.addEventListener('click', () => {
+      const open = drawer.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    function closeDrawer() {
+      drawer.classList.remove('open');
+      btn.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // ── Scroll reveal ──
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ── Active nav link highlight with animated indicator ──
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const navIndicator = document.getElementById('navIndicator');
+    const navLinksContainer = document.getElementById('navLinks');
+
+    function moveIndicatorToLink(link) {
+      if (!link || !navIndicator || !navLinksContainer) return;
+      const linkRect = link.getBoundingClientRect();
+      const containerRect = navLinksContainer.getBoundingClientRect();
+      navIndicator.style.width = linkRect.width + 'px';
+      navIndicator.style.transform = `translateX(${linkRect.left - containerRect.left}px)`;
+      navLinks.forEach(a => a.classList.remove('active'));
+      link.classList.add('active');
+    }
+
+    // Set initial position to Home link after layout settles
+    const homeLink = document.querySelector('.nav-links a[href="#home"]');
+    if (homeLink) {
+      requestAnimationFrame(() => {
+        moveIndicatorToLink(homeLink);
+      });
+    }
+
+    // Handle scroll-based active state
+    let currentActiveSection = 'home';
+    const ioNav = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && e.intersectionRatio >= 0.3) {
+          currentActiveSection = e.target.id;
+          const activeLink = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+          if (activeLink) moveIndicatorToLink(activeLink);
+        }
+      });
+    }, { threshold: 0.3, rootMargin: '-60px 0px -40% 0px' });
+    sections.forEach(s => ioNav.observe(s));
+
+    // Handle click-based navigation
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        moveIndicatorToLink(link);
+      });
+    });
+
+    // Recalculate on resize with animation disabled during resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      navIndicator.style.transition = 'none';
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const activeLink = document.querySelector('.nav-links a.active');
+        if (activeLink) moveIndicatorToLink(activeLink);
+        navIndicator.style.transition = 'all 0.35s cubic-bezier(0.25, 0.1, 0.25, 1)';
+      }, 100);
+    });
+  </script>
+</body>
+</html>
