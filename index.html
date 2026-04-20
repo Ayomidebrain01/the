@@ -1546,8 +1546,10 @@
     // ── Loader ──
     window.addEventListener('load', () => {
       const loader = document.getElementById('loader');
-      loader.classList.add('hidden');
-      document.body.style.overflow = '';
+      setTimeout(() => {
+        loader.classList.add('hidden');
+        document.body.style.overflow = '';
+      }, 300);
     });
     document.body.style.overflow = 'hidden';
 
