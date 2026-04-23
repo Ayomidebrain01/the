@@ -71,7 +71,7 @@
     .reveal {
       opacity: 0;
       transform: translateY(28px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
+      transition: opacity 0.65s ease, transform 1s ease;
     }
     .reveal.visible {
       opacity: 1;
@@ -577,6 +577,19 @@
     }
     .story-note::before { content: '→'; color: var(--accent); }
 
+    /* Story section - align image bottom with content */
+    #story .two-col {
+      align-items: stretch;
+    }
+    #story .two-col > div:first-child {
+      display: flex;
+      align-items: flex-end;
+    }
+    #story .two-col > div:first-child img {
+      width: 100%;
+      display: block;
+    }
+
     /* ─────────────────────────────────────────────
        PILLAR CARDS
     ───────────────────────────────────────────── */
@@ -690,6 +703,245 @@
       line-height: 1.7;
     }
 
+    /* ─────────────────────────────────────────────
+       WORK — NEW GRID LAYOUT
+    ───────────────────────────────────────────── */
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .work-item:nth-child(3) {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: calc(50% - 12px);
+    }
+    .work-item {
+      position: relative;
+      aspect-ratio: 16/10;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+    .work-item::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 10px,
+        rgba(255,255,255,0.02) 10px,
+        rgba(255,255,255,0.02) 20px
+      );
+      pointer-events: none;
+    }
+    .work-item:hover {
+      border-color: var(--border-h);
+      transform: translateY(-4px);
+    }
+    .work-item-number {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-family: var(--font-m);
+      font-size: 11px;
+      color: var(--text-3);
+      letter-spacing: 0.15em;
+    }
+    .work-item-image {
+      position: absolute;
+      inset: 0;
+      opacity: 1;
+    }
+    .work-item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .work-item-filename {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-m);
+      font-size: 10px;
+      color: var(--text-3);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .work-item-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      background: linear-gradient(transparent, rgba(8,8,9,0.95) 40%, rgba(8,8,9,1));
+    }
+    .work-item-name {
+      font-family: var(--font-d);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text-1);
+      line-height: 1.2;
+    }
+    .work-item-category {
+      font-family: var(--font-m);
+      font-size: 9px;
+      color: var(--text-2);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-align: right;
+      max-width: 150px;
+    }
+    .work-item-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-2);
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+    .work-item-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+    }
+    @media (max-width: 900px) {
+      .work-grid { grid-template-columns: 1fr; }
+      .work-item { aspect-ratio: 16/9; }
+      .work-item:nth-child(3) {
+        grid-column: auto;
+        justify-self: stretch;
+        width: 100%;
+      }
+    }
+
+    /* ── Work Popup Modal ── */
+    .work-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background: rgba(8,8,9,0.95);
+      backdrop-filter: blur(20px);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+    }
+    .work-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .work-modal-content {
+      position: relative;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      transform: scale(0.95) translateY(20px);
+      transition: all 0.4s ease;
+    }
+    .work-modal.active .work-modal-content {
+      transform: scale(1) translateY(0);
+    }
+    .work-modal-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-2);
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.3s ease;
+    }
+    .work-modal-close:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+    }
+    .work-modal-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+    .work-modal-body {
+      padding: 40px;
+    }
+    .work-modal-header {
+      margin-bottom: 32px;
+    }
+    .work-modal-client {
+      font-family: var(--font-m);
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .work-modal-title {
+      font-family: var(--font-d);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-1);
+      line-height: 1.2;
+    }
+    .work-modal-section {
+      margin-bottom: 28px;
+    }
+    .work-modal-section:last-child {
+      margin-bottom: 0;
+    }
+    .work-modal-label {
+      font-family: var(--font-m);
+      font-size: 10px;
+      color: var(--text-3);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .work-modal-text {
+      font-size: 15px;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+    @media (max-width: 640px) {
+      .work-modal { padding: 20px; }
+      .work-modal-body { padding: 28px; }
+      .work-modal-image { height: 200px; }
+      .work-modal-title { font-size: 24px; }
+    }
+
     /* Logo strip */
     .logo-strip {
       display: flex; align-items: center;
@@ -726,33 +978,47 @@
       justify-content: center;
     }
     .logo-box:hover { filter: grayscale(0) opacity(1); border-color: var(--border-h); color: var(--text-2); }
-    .logo-box img { filter: none; opacity: 1; }
+    .logo-box img { filter: brightness(0) invert(1); opacity: 1; }
+    .logo-box:hover img { filter: brightness(0) invert(1); opacity: 1; }
+    .logo-box:active img { filter: brightness(0) invert(1); opacity: 1; }
 
     /* ─────────────────────────────────────────────
        SOCIAL PROOF / TESTIMONIAL CAROUSEL
     ───────────────────────────────────────────── */
     .testimonial-carousel {
       position: relative;
-      overflow: hidden;
       max-width: 900px;
       margin: 0 auto;
+      padding: 0 0x;
     }
     .testimonial-track {
-      display: flex;
-      transition: transform 0.5s ease;
-      will-change: transform;
       position: relative;
-      z-index: 1;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
     }
     .testimonial-slide {
-      min-width: 100%;
-      padding: 0 20px;
-      box-sizing: border-box;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .testimonial-slide.active {
+      opacity: 1;
+      visibility: visible;
     }
     .quote-card {
       background: transparent;
       border: none;
-      padding: 0;
+      width: 100%;
+      max-width: 700px;
       text-align: left;
     }
     .quote-text {
@@ -769,69 +1035,71 @@
       gap: 16px;
     }
     .quote-logo {
-      height: 32px;
-      width: auto;
+      height: 24px;
+      width: 80px;
       object-fit: contain;
+      object-position: left center;
+      flex-shrink: 0;
     }
     .quote-divider {
       width: 1px;
-      height: 32px;
+      height: 28px;
       background: var(--border);
+      flex-shrink: 0;
     }
     .quote-attr {
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 4px;
     }
     .quote-name {
-      font-family: var(--font-d);
-      font-size: 16px;
-      font-weight: 500;
-      color: var(--text-1);
+      font-family: var(--font-m);
+      font-size: 14px;
+      font-weight: 600;
       font-style: italic;
+      color: var(--text-1);
     }
     .quote-title {
       font-family: var(--font-m);
-      font-size: 13px;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       color: var(--text-3);
     }
     .carousel-nav {
       display: flex;
       justify-content: center;
-      gap: 8px;
+      gap: 12px;
       margin-top: 40px;
     }
     .carousel-dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--border);
+      background: rgba(255,255,255,0.2);
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.2s ease;
     }
     .carousel-dot.active {
       background: var(--accent);
-    }
-    .carousel-dot:hover {
-      background: var(--text-3);
     }
     .carousel-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(20, 21, 22, 0.85);
-      border: 1px solid var(--border);
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      width: 48px;
-      height: 48px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--text-2);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: var(--text-2);
-      transition: all 0.3s;
-      z-index: 20;
-      pointer-events: auto;
+      transition: all 0.2s ease;
+      z-index: 10;
     }
     .carousel-btn:hover {
       border-color: var(--accent);
@@ -839,25 +1107,27 @@
     }
     .carousel-btn.prev { left: 0; }
     .carousel-btn.next { right: 0; }
-    .testimonial-carousel { padding: 0 80px; }
     @media (max-width: 1100px) {
-      .carousel-btn.prev { left: 0; }
-      .carousel-btn.next { right: 0; }
-      .testimonial-carousel { padding: 0 60px; }
+      .testimonial-carousel { padding: 0 0px; }
+      .testimonial-track { height: 280px; }
+      .quote-card { max-width: 600px; }
+      .quote-text { font-size: 20px; }
     }
     @media (max-width: 640px) {
-      .testimonial-carousel { padding: 0 50px; }
-      .quote-text { font-size: 15px; line-height: 1.55; margin-bottom: 20px; }
-      .quote-footer { flex-wrap: wrap; gap: 10px; }
-      .quote-logo { height: 22px; }
-      .quote-divider { height: 22px; }
+      .testimonial-carousel { padding: 0 0px; }
+      .testimonial-track { height: 320px; }
+      .quote-card { max-width: 100%; }
+      .quote-text { font-size: 16px; line-height: 1.55; margin-bottom: 24px; }
+      .quote-logo { height: 20px; width: 70px; }
+      .quote-divider { height: 24px; }
+      .quote-footer { gap: 12px; }
       .quote-name { font-size: 13px; }
       .quote-title { font-size: 10px; }
       .carousel-btn { width: 36px; height: 36px; }
-      .carousel-btn.prev { left: 5px; }
-      .carousel-btn.next { right: 5px; }
+      .carousel-btn.prev { left: 0; }
+      .carousel-btn.next { right: 0; }
       .carousel-btn svg { width: 18px; height: 18px; }
-      .carousel-nav { margin-top: 20px; }
+      .carousel-nav { margin-top: 24px; }
     }
     @media (max-width: 380px) {
       .quote-text { font-size: 14px; line-height: 1.5; }
@@ -910,13 +1180,21 @@
     }
     .tribe-content {
       padding: 32px 28px 36px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .tribe-header {
+      display: center;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
     }
     .tribe-name {
       font-family: var(--font-d);
-      font-size: 22px;
-      font-weight: 700;
+      font-size: 26px;
+      font-weight: 800;
       letter-spacing: -0.02em;
-      margin-bottom: 4px;
     }
     .tribe-role {
       font-family: var(--font-m);
@@ -925,18 +1203,21 @@
       color: var(--accent);
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      margin-bottom: 16px;
+      margin-bottom: 0px;
     }
     .tribe-bio {
       font-size: 15px;
       color: var(--text-2);
       line-height: 1.65;
+      flex: 1;
     }
     .tribe-linkedin {
       display: inline-flex;
-      margin-top: 20px;
       color: var(--text-3);
       transition: color 0.3s;
+      flex-shrink: 0;
+      align-self: center;
+      margin: 8px 0 16px;
     }
     .tribe-linkedin:hover {
       color: var(--accent);
@@ -1169,7 +1450,7 @@
       .stat-item:nth-child(2) { border-right: none; }
       .stat-item:nth-child(3) { border-right: 1px solid var(--border); padding-left: 0; }
       .four-col { grid-template-columns: repeat(2, 1fr); }
-      .cms-client-logo { height: 70px; }
+      .cms-client-logo { height: 80px; }
     }
 
     /* Tablets and mobile - show hamburger only */
@@ -1182,6 +1463,16 @@
       .section { padding: 80px 40px; }
       .hero { padding: 0 40px 72px; }
       .stats-bar { padding: 32px 40px; }
+      #story .two-col {
+        align-items: stretch;
+      }
+      #story .two-col > div:first-child {
+        display: flex;
+        align-items: flex-end;
+      }
+      #story .two-col > div:first-child img {
+        width: 100%;
+      }
       .two-col { grid-template-columns: 1fr; gap: 48px; }
       .three-col { grid-template-columns: 1fr; }
       .footer { padding: 36px 40px; }
@@ -1227,13 +1518,26 @@
       .footer-links { gap: 16px; flex-wrap: wrap; }
       .quote-card { padding: 32px 28px; }
       .tribe-card { display: flex; flex-direction: column; }
-      .tribe-img { max-height: 3200px; flex-shrink: 0; }
-      .tribe-img img { object-fit: cover; object-position: top center; }
-      .tribe-content { padding: 20px 20px 24px; }
-      .tribe-bio { font-size: 14px; line-height: 1.6; margin-bottom: 0; }
-      .tribe-role { margin-bottom: 12px; }
+      .tribe-img { max-height: 450px; flex-shrink: 0; }
+      .tribe-img img { object-fit: cover; object-position: center; }
+      .tribe-content { padding: 20px 20px 24px; display: flex; flex-direction: column; flex: 1; }
+      .tribe-bio { font-size: 14px; line-height: 1.6; margin-bottom: 0; flex: 1; }
+      .tribe-role { margin-bottom: 0px; }
       .tribe-name { margin-bottom: 2px; }
       .logo-box img { height: 40px !important; }
+      .cms-kaizen-badge {
+        margin-top: 24px;
+        padding: 16px 20px;
+        gap: 12px;
+      }
+      .cms-kaizen-char {
+        font-size: 28px;
+        letter-spacing: 0.05em;
+      }
+      .cms-kaizen-text {
+        font-size: 12px;
+        line-height: 1.5;
+      }
     }
 
     /* ─────────────────────────────────────────────
@@ -1305,8 +1609,11 @@
     .cms-logo--footer { height: 40px; }
     .cms-img-full { width: 100%; height: 420px; object-fit: cover; border-radius: var(--r-lg); display: block; }
     .cms-img-tribe { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .cms-client-logo { height: 100px; width: auto; filter: none; opacity: 1; }
+    .cms-client-logo { height: 65px; width: auto; filter: brightness(0) invert(1); opacity: 1; }
     .cms-client-logo--nb { height: 70px; }
+    .cms-client-logo--color { filter: none !important; opacity: 1 !important; }
+    .logo-box--color .cms-client-logo--color { filter: none !important; opacity: 1 !important; }
+    .logo-box--color:hover .cms-client-logo--color { filter: none !important; opacity: 1 !important; }
     .cms-kaizen-badge {
       margin-top: 28px;
       padding: 20px 24px;
@@ -1544,53 +1851,41 @@
             <h2 class="section-title">SOME THINGS WE&#39;VE DONE.</h2>
           </div>
         </div>
-        <div class="three-col">
-          <div class="case-card reveal">
-            <div class="case-img"><img src="images/work1.webp" alt="URC Rugby Partnership"></div>
-            <div class="case-img-overlay"></div>
-            <div class="case-content">
-              <div class="case-client">Rugby &#8212; URC</div>
-              <div class="case-title">Commercial Partnership Programme</div>
-              <div class="case-body">
-                <p class="cms-case-label">The challenge</p>
-                <p class="cms-case-p">A leading rugby competition needed to build a partnership activation programme that could demonstrate real value to commercial partners &#8212; and fast.</p>
-                <p class="cms-case-label">What we did</p>
-                <p class="cms-case-p">Developed the partnership strategy from scratch, created activation plans tied to measurable KPIs, and managed partner relationships across the full commercial calendar.</p>
-                <p class="cms-case-label">The result</p>
-                <p>A structured commercial programme that gave partners clarity, confidence, and a reason to stay. Helped shape how the organisation approached partnership value long-term.</p>
-              </div>
+        <div class="work-grid">
+          <div class="work-item reveal" data-work="urc" onclick="openWorkModal('urc')">
+            <span class="work-item-number">001</span>
+            <button class="work-item-btn" aria-label="View project details">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </button>
+            <div class="work-item-filename">/ united-rugby-champions.jpg</div>
+            <div class="work-item-image"><img src="images/work1.webp" alt="URC Rugby Partnership"></div>
+            <div class="work-item-footer">
+              <span class="work-item-name">United Rugby Champions</span>
+              <span class="work-item-category">Commercial Partnership Programme</span>
             </div>
           </div>
-          <div class="case-card reveal reveal-delay-1">
-            <div class="case-img"><img src="images/work2.webp" alt="Habarii Media"></div>
-            <div class="case-img-overlay"></div>
-            <div class="case-content">
-              <div class="case-client">Media &#8212; Habarii Media</div>
-              <div class="case-title">Commercial Revenue Strategy</div>
-              <div class="case-body">
-                <p class="cms-case-label">The challenge</p>
-                <p class="cms-case-p">A fast-growing sports media business needed commercial proposals that could land serious partnerships &#8212; the kind that move a business forward, not just keep the lights on.</p>
-                <p class="cms-case-label">What we did</p>
-                <p class="cms-case-p">Built out the commercial revenue decks and partnership proposals from the ground up. Positioned the business as a credible, high-value partner for brands looking to reach engaged sports audiences.</p>
-                <p class="cms-case-label">The result</p>
-                <p>Proposals valued at R2.5 million &#8212; and they landed. Multiple partnerships secured, with clients feeding back that the quality of the proposal itself was what got them over the line.</p>
-              </div>
+          <div class="work-item reveal reveal-delay-1" data-work="habarii" onclick="openWorkModal('habarii')">
+            <span class="work-item-number">002</span>
+            <button class="work-item-btn" aria-label="View project details">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </button>
+            <div class="work-item-filename">/ habarii-media.jpg</div>
+            <div class="work-item-image"><img src="images/work2.webp" alt="Habarii Media"></div>
+            <div class="work-item-footer">
+              <span class="work-item-name">Habarii Media</span>
+              <span class="work-item-category">Commercial Revenue Strategy</span>
             </div>
           </div>
-          <div class="case-card reveal reveal-delay-2">
-            <div class="case-img"><img src="images/work3.webp" alt="Adidas Product Launch"></div>
-            <div class="case-img-overlay"></div>
-            <div class="case-content">
-              <div class="case-client">Sportswear &#8212; Adidas</div>
-              <div class="case-title">Product Franchise Launch</div>
-              <div class="case-body">
-                <p class="cms-case-label">The challenge</p>
-                <p class="cms-case-p">One of the world&#39;s biggest sportswear brands was launching their fastest running franchise &#8212; and needed global communications that could land across markets, retail, and digital simultaneously.</p>
-                <p class="cms-case-label">What we did</p>
-                <p class="cms-case-p">Led global communications strategy for the franchise launch. Built the campaign narrative, developed sell-in and sell-out toolkits, and ensured a seamless retail experience from global brief to local execution.</p>
-                <p class="cms-case-label">The result</p>
-                <p>A product launch that landed with consistency and impact across multiple markets &#8212; with the comms strategy doing the heavy lifting from day one.</p>
-              </div>
+          <div class="work-item reveal reveal-delay-2" data-work="adidas" onclick="openWorkModal('adidas')">
+            <span class="work-item-number">003</span>
+            <button class="work-item-btn" aria-label="View project details">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </button>
+            <div class="work-item-filename">/ adidas-running.jpg</div>
+            <div class="work-item-image"><img src="images/work3.webp" alt="Adidas Product Launch"></div>
+            <div class="work-item-footer">
+              <span class="work-item-name">Adidas Running</span>
+              <span class="work-item-category">Product Franchise Launch</span>
             </div>
           </div>
         </div>
@@ -1600,8 +1895,12 @@
           <div class="logo-box"><img src="images/Treble-logo.png" alt="Treble Group" class="cms-client-logo"></div>
           <div class="logo-box"><img src="images/OFX-logo.png" alt="OFX" class="cms-client-logo"></div>
           <div class="logo-box"><img src="images/adi-logo.png" alt="adidas" class="cms-client-logo"></div>
-          <div class="logo-box"><img src="images/Jota-logo.png" alt="Team Jota" class="cms-client-logo"></div>
+          <div class="logo-box logo-box--color"><img src="images/Jota-logo.png" alt="Team Jota" class="cms-client-logo cms-client-logo--color"></div>
           <div class="logo-box"><img src="images/DHL-logo.png" alt="DHL" class="cms-client-logo"></div>
+          <div class="logo-box"><img src="images/YMS-Logo.png" alt="YMS" class="cms-client-logo"></div>
+          <div class="logo-box"><img src="images/nb-logo.png" alt="NB" class="cms-client-logo"></div>
+          <div class="logo-box"><img src="images/Springboks-logo.png" alt="Springboks" class="cms-client-logo"></div>
+          <div class="logo-box"><img src="images/urc-logo.png" alt="URC" class="cms-client-logo"></div>
           <div class="logo-box"><img src="images/sarac-logo.png" alt="Saracens" class="cms-client-logo"></div>
         </div>
       </div>
@@ -1621,7 +1920,7 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
           </button>
           <div class="testimonial-track">
-            <div class="testimonial-slide">
+            <div class="testimonial-slide active">
               <div class="quote-card">
                 <div class="quote-text">&#8220;Sarah has played a pivotal role in achieving and surpassing our marketing objectives. Creative, forward thinking, and a key example of strong leadership.&#8221;</div>
                 <div class="quote-footer">
@@ -1674,10 +1973,10 @@
             <div class="tribe-content">
               <h3 class="tribe-name">Sarah Mundy</h3>
               <p class="tribe-role">Founder</p>
-              <p class="tribe-bio">Sports marketer. Strategist. AI enthusiast. Marathon runner and mountain climber because sitting still was never really my thing. I&#39;ve spent my career across brands, rights holders, and agencies &#8212; from Johannesburg to Tokyo to London and built Project Brand to bring all that experience together in one place. I move fast, deliver sharp, and genuinely love this industry. Also firmly believe that if you can&#39;t laugh in sports marketing, you&#39;re probably taking yourself too seriously.</p>
               <a href="https://www.linkedin.com/in/samundy" target="_blank" rel="noopener" class="tribe-linkedin" aria-label="Sarah Mundy LinkedIn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
               </a>
+              <p class="tribe-bio">Sports marketer. Strategist. AI enthusiast. Marathon runner and mountain climber because sitting still was never really my thing. I&#39;ve spent my career across brands, rights holders, and agencies &#8212; from Johannesburg to Tokyo to London and built Project Brand to bring all that experience together in one place. I move fast, deliver sharp, and genuinely love this industry. Also firmly believe that if you can&#39;t laugh in sports marketing, you&#39;re probably taking yourself too seriously.</p>
             </div>
           </article>
           <article class="tribe-card reveal reveal-delay-1" data-cms-field="tribe-member-2">
@@ -1685,10 +1984,11 @@
             <div class="tribe-content">
               <h3 class="tribe-name">Wesley Tam</h3>
               <p class="tribe-role">Partner</p>
-              <p class="tribe-bio">Running addict. Returning golfer (after a ten-year hiatus &#8212; still figuring out the swing). Sports marketer who&#39;s worked with the likes of Novak Djokovic, Iga Swiatek, the Springboks and the Wallabies and yes, I&#39;ve packed the boxes, survived the 2am hotel rooms, and lived the grind that comes with the glossy campaigns. I love bringing brand and athlete partnerships to life and I believe in two simple rules: chop wood, carry water .. and always be super vibey.</p>
               <a href="https://www.linkedin.com/in/wesley-tam" target="_blank" rel="noopener" class="tribe-linkedin" aria-label="Wesley Tam LinkedIn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
               </a>
+              <p class="tribe-bio">Running addict. Returning golfer (after a ten-year hiatus &#8212; still figuring out the swing). Sports marketer who&#39;s worked with the likes of Novak Djokovic, Iga Swiatek, the Springboks and the Wallabies and yes, I&#39;ve packed the boxes, survived the 2am hotel rooms, and lived the grind that comes with the glossy campaigns.</p>
+              <p class="tribe-bio">I love bringing brand and athlete partnerships to life and I believe in two simple rules: chop wood, carry water .. and always be super vibey.</p>
             </div>
           </article>
           <article class="tribe-card reveal reveal-delay-2" data-cms-field="tribe-member-3">
@@ -1764,6 +2064,35 @@
     </section>
 
   </main>
+
+  <!-- ── Work Modal ── -->
+  <div class="work-modal" id="workModal" onclick="closeWorkModal(event)">
+    <div class="work-modal-content">
+      <button class="work-modal-close" onclick="closeWorkModal(event)" aria-label="Close modal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <img class="work-modal-image" id="modalImage" src="" alt="">
+      <div class="work-modal-body">
+        <div class="work-modal-header">
+          <div class="work-modal-client" id="modalClient"></div>
+          <h3 class="work-modal-title" id="modalTitle"></h3>
+        </div>
+        <div class="work-modal-section">
+          <div class="work-modal-label">The Challenge</div>
+          <p class="work-modal-text" id="modalChallenge"></p>
+        </div>
+        <div class="work-modal-section">
+          <div class="work-modal-label">What We Did</div>
+          <p class="work-modal-text" id="modalSolution"></p>
+        </div>
+        <div class="work-modal-section">
+          <div class="work-modal-label">The Result</div>
+          <p class="work-modal-text" id="modalResult"></p>
+        </div>
+        <div class="logo-label">Full case studies available on request.</div>
+      </div>
+    </div>
+  </div>
 
   <!-- ──────────────────── FOOTER ──────────────────── -->
   <footer class="footer" role="contentinfo">
@@ -1886,18 +2215,19 @@
     });
 
     // ── Testimonial Carousel ──
-    const track = document.querySelector('.testimonial-track');
     const slides = document.querySelectorAll('.testimonial-slide');
     const dots = document.querySelectorAll('.carousel-dot');
     const prevBtn = document.querySelector('.carousel-btn.prev');
     const nextBtn = document.querySelector('.carousel-btn.next');
 
-    if (track && slides.length > 0) {
+    if (slides.length > 0) {
       let currentSlide = 0;
       const totalSlides = slides.length;
 
       function updateCarousel() {
-        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        slides.forEach((slide, index) => {
+          slide.classList.toggle('active', index === currentSlide);
+        });
         dots.forEach((dot, index) => {
           dot.classList.toggle('active', index === currentSlide);
         });
@@ -1924,14 +2254,83 @@
       });
 
       // Auto-advance every 6 seconds
-      let autoAdvance = setInterval(nextSlide, 6000);
-      
-      // Pause auto-advance on hover
-      track.addEventListener('mouseenter', () => clearInterval(autoAdvance));
-      track.addEventListener('mouseleave', () => {
-        autoAdvance = setInterval(nextSlide, 6000);
-      });
+      setInterval(nextSlide, 6000);
     }
+
+    // ── Work Modal ──
+    const workModal = document.getElementById('workModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalClient = document.getElementById('modalClient');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalChallenge = document.getElementById('modalChallenge');
+    const modalSolution = document.getElementById('modalSolution');
+    const modalResult = document.getElementById('modalResult');
+
+    const workData = {
+      urc: {
+        image: 'images/work1.webp',
+        client: 'Rugby — URC',
+        title: 'Commercial Partnership Programme',
+        challenge: 'A leading rugby competition needed to build a partnership activation programme that could demonstrate real value to commercial partners — and fast.',
+        solution: 'Developed the partnership strategy from scratch, created activation plans tied to measurable KPIs, and managed partner relationships across the full commercial calendar. Every campaign was designed to connect fan engagement directly to sponsor ROI.',
+        result: 'A structured commercial programme that gave partners clarity, confidence, and a reason to stay. Helped shape how the organisation approached partnership value long-term.'
+      },
+      habarii: {
+        image: 'images/work2.webp',
+        client: 'Media — Habarii Media',
+        title: 'Commercial Revenue Strategy',
+        challenge: 'A fast-growing sports media business needed commercial proposals that could land serious partnerships — the kind that move a business forward, not just keep the lights on.',
+        solution: 'Built out the commercial revenue decks and partnership proposals from the ground up. Positioned the business as a credible, high-value partner for brands looking to reach engaged sports audiences. Made sure the numbers, the narrative, and the ask all made sense together.',
+        result: 'Proposals valued at R2.5 million — and they landed. Multiple partnerships secured, with clients feeding back that the quality of the proposal itself was what got them over the line.'
+      },
+      adidas: {
+        image: 'images/work3.webp',
+        client: 'Sportswear — Adidas',
+        title: 'Product Franchise Launch',
+        challenge: 'One of the world\'s biggest sportswear brands was launching their fastest running franchise — and needed global communications that could land across markets, retail, and digital simultaneously.',
+        solution: 'Led global communications strategy for the franchise launch. Built the campaign narrative, developed sell-in and sell-out toolkits, and ensured a seamless retail experience from global brief to local execution.',
+        result: 'A product launch that landed with consistency and impact across multiple markets — with the comms strategy doing the heavy lifting from day one.'
+      },
+      treble: {
+        image: 'images/work1.webp',
+        client: 'Sports Marketing — Treble Group',
+        title: 'Brand Partnership Strategy',
+        challenge: 'A leading sports marketing agency needed to reposition their brand partnership offerings to attract higher-value clients in a competitive market.',
+        solution: 'Developed a comprehensive brand partnership framework, created compelling pitch materials, and provided strategic counsel on key client presentations.',
+        result: 'Successfully secured three major brand partnerships worth over £1M combined, establishing Treble Group as a premium player in the sports marketing space.'
+      }
+    };
+
+    function openWorkModal(workId) {
+      const data = workData[workId];
+      if (!data) return;
+      
+      modalImage.src = data.image;
+      modalImage.alt = data.title;
+      modalClient.textContent = data.client;
+      modalTitle.textContent = data.title;
+      modalChallenge.textContent = data.challenge;
+      modalSolution.textContent = data.solution;
+      modalResult.textContent = data.result;
+      
+      workModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeWorkModal(e) {
+      if (e.target === workModal || e.target.closest('.work-modal-close')) {
+        workModal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && workModal.classList.contains('active')) {
+        workModal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
 
     // ── Back to Top Button with Progress ──
     const backToTopBtn = document.getElementById('backToTop');
