@@ -942,6 +942,62 @@
       color: var(--accent);
     }
 
+    /* ── Back to Top Button ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .back-to-top:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .back-to-top:hover .arrow-icon {
+      color: var(--bg);
+    }
+    .progress-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    .progress-ring-bg {
+      fill: none;
+      stroke: var(--border);
+      stroke-width: 2;
+    }
+    .progress-ring-fill {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 2;
+      stroke-dasharray: 138.23;
+      stroke-dashoffset: 138.23;
+      transition: stroke-dashoffset 0.1s;
+    }
+    .arrow-icon {
+      width: 18px;
+      height: 18px;
+      color: var(--text-1);
+      z-index: 1;
+    }
+
     .network-banner {
       margin-top: 40px;
       background: var(--bg-2);
@@ -1718,6 +1774,17 @@
     <div class="footer-copy" data-cms-field="footer-copyright">&#169; 2026 Project Brand. All Right Reserved</div>
   </footer>
 
+  <!-- ── Back to Top Button ── -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg class="progress-ring" viewBox="0 0 48 48">
+      <circle class="progress-ring-bg" cx="24" cy="24" r="22"/>
+      <circle class="progress-ring-fill" cx="24" cy="24" r="22" id="progressCircle"/>
+    </svg>
+    <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 19V5M5 12l7-7 7 7"/>
+    </svg>
+  </button>
+
   <script>
 
     // ── Loader ──
@@ -1865,6 +1932,33 @@
         autoAdvance = setInterval(nextSlide, 6000);
       });
     }
+
+    // ── Back to Top Button with Progress ──
+    const backToTopBtn = document.getElementById('backToTop');
+    const progressCircle = document.getElementById('progressCircle');
+    const circumference = 2 * Math.PI * 22; // r=22
+
+    function updateProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = scrollTop / docHeight;
+      const offset = circumference - (scrollPercent * circumference);
+      
+      progressCircle.style.strokeDashoffset = offset;
+      
+      // Show/hide button based on scroll position
+      if (scrollTop > 200) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   </script>
 </body>
 </html>
