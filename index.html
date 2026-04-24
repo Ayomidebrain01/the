@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Project Brand &#8212; Agile Sports Marketing Studio, London</title>
   <link rel="icon" type="image/png" href="images/favi.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2115,6 +2118,25 @@
   </button>
 
   <script>
+
+    // ── Auto-clear cache after 1 hour ──
+    (function() {
+      const CACHE_KEY = 'cacheTimestamp';
+      const ONE_HOUR = 60 * 60 * 1000; // 1 hour in milliseconds
+
+      const now = Date.now();
+      const lastClear = localStorage.getItem(CACHE_KEY);
+
+      if (lastClear) {
+        const timeSinceLastClear = now - parseInt(lastClear, 10);
+        if (timeSinceLastClear >= ONE_HOUR) {
+          localStorage.clear();
+          sessionStorage.clear();
+          console.log('Cache cleared after 1 hour');
+        }
+      }
+      localStorage.setItem(CACHE_KEY, now.toString());
+    })();
 
     // ── Loader ──
     window.addEventListener('load', () => {
