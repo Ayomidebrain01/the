@@ -2039,28 +2039,28 @@
             </div>
           </div>
           <div class="reveal reveal-delay-2">
-            <div class="form-wrap">
+            <form class="form-wrap" action="https://formspree.io/f/xaqazljr" method="POST">
               <div class="form-row">
                 <label class="form-label" for="name">Name</label>
-                <input class="form-input" id="name" type="text" placeholder="Your name" autocomplete="name">
+                <input class="form-input" id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required>
               </div>
               <div class="form-row">
                 <label class="form-label" for="org">Organisation</label>
-                <input class="form-input" id="org" type="text" placeholder="Where you&#39;re from">
+                <input class="form-input" id="org" name="organisation" type="text" placeholder="Where you&#39;re from">
               </div>
               <div class="form-row">
                 <label class="form-label" for="email">Email</label>
-                <input class="form-input" id="email" type="email" placeholder="your@email.com" autocomplete="email">
+                <input class="form-input" id="email" name="email" type="email" placeholder="your@email.com" autocomplete="email" required>
               </div>
               <div class="form-row">
                 <label class="form-label" for="msg">Message</label>
-                <textarea class="form-input form-textarea" id="msg" placeholder="Tell us about your project..."></textarea>
+                <textarea class="form-input form-textarea" id="msg" name="message" placeholder="Tell us about your project..." required></textarea>
               </div>
               <button class="btn-primary" style="width:100%;justify-content:center;margin-top:4px;" type="submit">
                 Send message
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
               </button>
-            </div>
+            </form>
           </div>
         </div>
       </div>
