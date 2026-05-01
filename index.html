@@ -949,15 +949,13 @@
       .work-modal-title { font-size: 24px; }
     }
 
-    /* Logo strip */
+    /* Logo strip - auto-scrolling marquee */
     .logo-strip {
-      display: flex; align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 40px;
+      position: relative;
       padding-top: 56px;
       margin-top: 56px;
       border-top: 1px solid var(--border);
+      overflow: hidden;
     }
     .logo-label {
       width: 100%;
@@ -968,6 +966,20 @@
       text-transform: uppercase;
       text-align: center;
       margin-bottom: 24px;
+    }
+    .logo-track {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      animation: scrollLogos 25s linear infinite;
+      width: max-content;
+    }
+    .logo-track:hover {
+      animation-play-state: paused;
+    }
+    @keyframes scrollLogos {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
     .logo-box {
       display: flex;
@@ -1637,7 +1649,7 @@
       gap: 16px;
     }
     .cms-kaizen-char {
-      font-size: 32px;
+      font-size: x-large;
       color: var(--accent);
       font-weight: 700;
       letter-spacing: 0.1em;
@@ -1904,16 +1916,29 @@
 
         <div class="logo-strip">
           <div class="logo-label">Brands we've worked with, directly and through trusted partners</div>
-          <div class="logo-box"><img src="images/adi-logo.png" alt="adidas" class="cms-client-logo"></div>
-          <div class="logo-box"><img src="images/DHL-logo.png" alt="DHL" class="cms-client-logo"></div>
-          <div class="logo-box"><img src="images/Jota-logo.png" alt="Jota" class="cms-client-logo"></div>
-          <div class="logo-box"><img src="images/nb-logo.png" alt="New Balance" class="cms-client-logo"></div>
-          <div class="logo-box"><img src="images/OFX-logo.png" alt="OFX" class="cms-client-logo"></div>
-          <div class="logo-box"><img src="images/sarac-logo.png" alt="Saracens" class="cms-client-logo"></div>
-          <div class="logo-box"><img src="images/Springboks-logo.png" alt="Springboks" class="cms-client-logo"></div>
-          <div class="logo-box"><img src="images/Treble-logo.png" alt="Treble Group" class="cms-client-logo"></div>
-          <div class="logo-box"><img src="images/urc-logo.png" alt="URC" class="cms-client-logo"></div>
-          <div class="logo-box"><img src="images/YMS-Logo.png" alt="YMS" class="cms-client-logo"></div>
+          <div class="logo-track">
+            <div class="logo-box"><img src="images/adi-logo.png" alt="adidas" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/DHL-logo.png" alt="DHL" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/Jota-logo.png" alt="Jota" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/nb-logo.png" alt="New Balance" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/OFX-logo.png" alt="OFX" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/sarac-logo.png" alt="Saracens" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/Springboks-logo.png" alt="Springboks" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/Treble-logo.png" alt="Treble Group" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/urc-logo.png" alt="URC" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/YMS-Logo.png" alt="YMS" class="cms-client-logo"></div>
+            <!-- Duplicate for seamless loop -->
+            <div class="logo-box"><img src="images/adi-logo.png" alt="adidas" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/DHL-logo.png" alt="DHL" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/Jota-logo.png" alt="Jota" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/nb-logo.png" alt="New Balance" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/OFX-logo.png" alt="OFX" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/sarac-logo.png" alt="Saracens" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/Springboks-logo.png" alt="Springboks" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/Treble-logo.png" alt="Treble Group" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/urc-logo.png" alt="URC" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/YMS-Logo.png" alt="YMS" class="cms-client-logo"></div>
+          </div>
         </div>
       </div>
     </section>
