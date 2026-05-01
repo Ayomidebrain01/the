@@ -6,7 +6,7 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>Project Brand &#8212; Agile Sports Marketing Studio, London</title>
+  <title>Project Brand —  Agile Sports Marketing Studio, London</title>
   <link rel="icon" type="image/png" href="images/favi.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -298,13 +298,13 @@
 
     .hero-headline {
       font-family: var(--font-d);
-      font-size: clamp(48px, 7vw, 96px);
+      font-size: clamp(40px, 5vw, 90px);
       font-weight: 900;
       line-height: 0.92;
       letter-spacing: -0.04em;
-      max-width: 980px;
+      max-width: 1400px;
       position: relative; z-index: 2;
-      margin-bottom: 32px;
+      margin-bottom: 5px;
     }
     .hero-headline .accent { color: var(--accent); display: block; }
 
@@ -582,16 +582,18 @@
     }
     .story-note::before { content: '→'; color: var(--accent); }
 
-    /* Story section - align image bottom with content */
+    /* Story section - equal height columns */
     #story .two-col {
       align-items: stretch;
     }
     #story .two-col > div:first-child {
       display: flex;
-      align-items: flex-end;
+      align-items: stretch;
     }
     #story .two-col > div:first-child img {
       width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
     }
 
@@ -952,7 +954,7 @@
       display: flex; align-items: center;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 40px;
       padding-top: 56px;
       margin-top: 56px;
       border-top: 1px solid var(--border);
@@ -968,24 +970,21 @@
       margin-bottom: 24px;
     }
     .logo-box {
-      background: var(--bg-2);
-      border: 1px solid var(--border);
-      border-radius: var(--r-md);
-      padding: 14px 32px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-3);
-      letter-spacing: 0.03em;
-      filter: grayscale(1) opacity(0.5);
-      transition: all 0.3s;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 0 16px;
+      filter: grayscale(1) opacity(0.6);
+      transition: filter 0.3s, opacity 0.3s;
     }
-    .logo-box:hover { filter: grayscale(0) opacity(1); border-color: var(--border-h); color: var(--text-2); }
-    .logo-box img { filter: brightness(0) invert(1); opacity: 1; }
-    .logo-box:hover img { filter: brightness(0) invert(1); opacity: 1; }
-    .logo-box:active img { filter: brightness(0) invert(1); opacity: 1; }
+    .logo-box:hover { filter: grayscale(0) opacity(1); }
+    .logo-box img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+    .logo-box--color { filter: none; }
+    .logo-box--color img { filter: none !important; opacity: 1 !important; }
 
     /* ─────────────────────────────────────────────
        SOCIAL PROOF / TESTIMONIAL CAROUSEL
@@ -1455,7 +1454,7 @@
       .stat-item:nth-child(2) { border-right: none; }
       .stat-item:nth-child(3) { border-right: 1px solid var(--border); padding-left: 0; }
       .four-col { grid-template-columns: repeat(2, 1fr); }
-      .cms-client-logo { height: 80px; }
+      .cms-client-logo { height: 48px; }
     }
 
     /* Tablets and mobile - show hamburger only */
@@ -1473,10 +1472,12 @@
       }
       #story .two-col > div:first-child {
         display: flex;
-        align-items: flex-end;
+        align-items: stretch;
       }
       #story .two-col > div:first-child img {
         width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
       .two-col { grid-template-columns: 1fr; gap: 48px; }
       .three-col { grid-template-columns: 1fr; }
@@ -1529,7 +1530,7 @@
       .tribe-bio { font-size: 14px; line-height: 1.6; margin-bottom: 0; flex: 1; }
       .tribe-role { margin-bottom: 0px; }
       .tribe-name { margin-bottom: 2px; }
-      .logo-box img { height: 40px !important; }
+      .logo-box img { height: 32px !important; }
       .cms-kaizen-badge {
         margin-top: 24px;
         padding: 16px 20px;
@@ -1614,9 +1615,15 @@
     .cms-logo--footer { height: 40px; }
     .cms-img-full { width: 100%; height: 420px; object-fit: cover; border-radius: var(--r-lg); display: block; }
     .cms-img-tribe { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .cms-client-logo { height: 65px; width: auto; filter: brightness(0) invert(1); opacity: 1; }
-    .cms-client-logo--nb { height: 70px; }
+    .cms-client-logo { height: 40px; width: auto; max-width: 140px; filter: brightness(0) invert(1); opacity: 1; object-fit: contain; }
+    .cms-client-logo--nb { height: 40px; }
     .cms-client-logo--color { filter: none !important; opacity: 1 !important; }
+    /* Larger logos for smaller-looking brands */
+    .logo-box img[src*="sarac"] { height: 52px !important; }
+    .logo-box img[src*="Springboks"] { height: 52px !important; }
+    .logo-box img[src*="Treble"] { height: 50px !important; }
+    .logo-box img[src*="nb-logo"] { height: 52px !important; }
+    .logo-box img[src*="DHL"] { height: 48px !important; }
     .logo-box--color .cms-client-logo--color { filter: none !important; opacity: 1 !important; }
     .logo-box--color:hover .cms-client-logo--color { filter: none !important; opacity: 1 !important; }
     .cms-kaizen-badge {
@@ -1715,10 +1722,10 @@
       </video>
       <div class="hero-video-overlay"></div>
       <div class="hero-eyebrow">Sports Marketing Studio &mdash; London</div>
-      <h1 class="hero-headline">
-        Sport doesn't stand still.
-        <span class="accent">Neither do we.</span>
-      </h1>
+     <h1 class="hero-headline">
+  SPORT DOESN'T STAND STILL.
+  <span class="accent">NEITHER DO WE.</span>
+</h1>
       <p class="hero-sub">An agile sports marketing studio powered by sharp strategy, smart AI tools, and serious experience.</p>
       <div class="scroll-hint">Scroll</div>
     </section>
@@ -1749,20 +1756,20 @@
         <div class="section-head">
           <div class="section-head-left reveal">
             <div class="section-label">Why Us</div>
-            <h2 class="section-title">WHY US? BECAUSE WE&#39;VE BEEN ON YOUR SIDE OF THE TABLE.</h2>
+            <h2 class="section-title">WHY US? BECAUSE WE'VE BEEN ON YOUR SIDE OF THE TABLE.</h2>
           </div>
         </div>
         <div class="two-col">
           <div class="reveal">
             <ul class="pain-list">
-              <li class="pain-item"><div class="pain-dot"></div><div class="pain-text">Most sports marketers know one side of the table. We&#39;ve sat on all of them &#8212; brand, rights holder, agency, athlete. It means we know what your partners need, what your fans expect, and what actually drives commercial results.</div></li>
-              <li class="pain-item"><div class="pain-dot"></div><div class="pain-text">We built Project Brand to do things differently. <strong style="color:var(--text-1);">Lean team. Senior people. AI tools</strong> that speed up the boring stuff so we can focus on the work that actually matters &#8212; strategy and storytelling that drive results.</div></li>
-              <li class="pain-item"><div class="pain-dot"></div><div class="pain-text">We&#39;re <strong style="color:var(--text-1);">virtual</strong>, which means no office overhead landing on your invoice. We&#39;re <strong style="color:var(--text-1);">global</strong>, which means we work across time zones and markets. And we&#39;re <strong style="color:var(--text-1);">agile</strong>, which means a typical project flows from first conversation to delivery without the six-week onboarding most agencies need before they even understand your sport.</div></li>
+              <li class="pain-item"><div class="pain-dot"></div><div class="pain-text">Most sports marketers know one side of the table. We've sat on all of them — brand, rights holder, agency, athlete. It means we know what your partners need, what your fans expect, and what actually drives commercial results.</div></li>
+              <li class="pain-item"><div class="pain-dot"></div><div class="pain-text">We built Project Brand to do things differently. <strong style="color:var(--text-1);">Lean team. Senior people. AI tools</strong> that speed up the boring stuff so we can focus on the work that actually matters —  strategy and storytelling that drive results.</div></li>
+              <li class="pain-item"><div class="pain-dot"></div><div class="pain-text">We're <strong style="color:var(--text-1);">virtual</strong>, which means no office overhead landing on your invoice. We're <strong style="color:var(--text-1);">global</strong>, which means we work across time zones and markets. And we're <strong style="color:var(--text-1);">agile</strong>, which means a typical project flows from first conversation to delivery without the six-week onboarding most agencies need before they even understand your sport.</div></li>
             </ul>
           </div>
           <div class="reveal reveal-delay-2" style="display:flex; align-items:center;">
             <div class="answer-box" style="font-size:22px; line-height:1.6; font-weight:500; color:var(--text-1);">
-              We move fast without cutting corners. We sharpen what matters. And we get sport because we&#39;ve lived in it &#8212; not just studied it from the outside.
+              We move fast without cutting corners. We sharpen what matters. And we get sport because we've lived in it —  not just studied it from the outside.
             </div>
           </div>
         </div>
@@ -1784,9 +1791,9 @@
           </div>
           <div class="reveal reveal-delay-2">
             <div class="story-body" data-cms-field="story-content">
-              <p>Project Brand was born in Tokyo in 2020 &#8212; from a leap of faith and two decades of sports marketing experience that needed a new home.</p>
-              <p>Our founder Sarah spent years working across global brands, rights holders, and sporting bodies &#8212; from the Springboks to ASICS (three years at HQ in Tokyo) to adidas Running. Along the way she kept bumping into the same problem: sports brands either overpay for big agency overhead or underpay for freelancers who don&#39;t know the industry.</p>
-              <p>So she built something in between. A studio inspired by <span class="cms-story-highlight">改善 Kaizen</span> &#8212; the Japanese philosophy of continuous improvement. Which basically means we&#39;re never done getting better. Sounds intense. It is. But it works.</p>
+              <p>Project Brand was born in Tokyo in 2020 —  from a leap of faith and two decades of sports marketing experience that needed a new home.</p>
+              <p>Our founder Sarah spent years working across global brands, rights holders, and sporting bodies —  from the Springboks to ASICS (three years at HQ in Tokyo) to adidas Running. Along the way she kept bumping into the same problem: sports brands either overpay for big agency overhead or underpay for freelancers who don't know the industry.</p>
+              <p>So she built something in between. A studio inspired by <span class="cms-story-highlight">改善 Kaizen</span> —  the Japanese philosophy of continuous improvement. Which basically means we're never done getting better. Sounds intense. It is. But it works.</p>
               <div class="cms-kaizen-badge">
                 <div class="cms-kaizen-char">改善</div>
                 <div class="cms-kaizen-text">
@@ -1806,8 +1813,8 @@
         <div class="section-head">
           <div class="section-head-left reveal">
             <div class="section-label">What We Do</div>
-            <h2 class="section-title">WHAT WE&#39;RE GOOD AT.</h2>
-            <p class="section-sub">Four areas. All powered by AI where it makes sense &#8212; and always backed by people who know sport inside out.</p>
+            <h2 class="section-title">WHAT WE'RE GOOD AT.</h2>
+            <p class="section-sub">Four areas. All powered by AI where it makes sense —  and always backed by people who know sport inside out.</p>
           </div>
         </div>
         <div class="four-col">
@@ -1817,7 +1824,7 @@
             </div>
             <div class="pillar-name">Strategy</div>
             <div class="pillar-subtitle">AI-accelerated research, briefs and creative</div>
-            <div class="pillar-body">We don&#39;t do strategy decks that collect dust. We build plans you can actually use &#8212; across marketing, content, sponsorship, sales, and go-to-market. We use AI to accelerate the research and sharpen the insights, so you get to the good stuff faster.</div>
+            <div class="pillar-body">We don't do strategy decks that collect dust. We build plans you can actually use —  across marketing, content, sponsorship, sales, and go-to-market. We use AI to accelerate the research and sharpen the insights, so you get to the good stuff faster.</div>
           </div>
           <div class="pillar-card reveal reveal-delay-1">
             <div class="pillar-icon">
@@ -1825,7 +1832,7 @@
             </div>
             <div class="pillar-name">Digital</div>
             <div class="pillar-subtitle">Where fandom turns into real commercial value.</div>
-            <div class="pillar-body">Your brand lives online whether you like it or not. We make sure it shows up well &#8212; compelling messaging, digital campaigns, websites that actually work, and SEO that earns attention. Built around what your audience cares about, not what looks good in a pitch.</div>
+            <div class="pillar-body">Your brand lives online whether you like it or not. We make sure it shows up well —  compelling messaging, digital campaigns, websites that actually work, and SEO that earns attention. Built around what your audience cares about, not what looks good in a pitch.</div>
           </div>
           <div class="pillar-card reveal reveal-delay-2">
             <div class="pillar-icon">
@@ -1833,7 +1840,7 @@
             </div>
             <div class="pillar-name">Creative</div>
             <div class="pillar-subtitle">Stories that move people and product</div>
-            <div class="pillar-body">Ideas are easy. Execution is everything. We handle brand development, campaign creative, photography, videography, and content production &#8212; pulling from a global network of talent we trust. If it needs to look good and land hard, that&#39;s us.</div>
+            <div class="pillar-body">Ideas are easy. Execution is everything. We handle brand development, campaign creative, photography, videography, and content production —  pulling from a global network of talent we trust. If it needs to look good and land hard, that's us.</div>
           </div>
           <div class="pillar-card reveal reveal-delay-3">
             <div class="pillar-icon">
@@ -1841,7 +1848,7 @@
             </div>
             <div class="pillar-name">Management</div>
             <div class="pillar-subtitle">From exec strategy to on-ground delivery</div>
-            <div class="pillar-body">Someone needs to keep the trains running. We handle project management, event coordination, timelines, budgets, and athlete concierge &#8212; so you can focus on the big picture while we take care of the details.</div>
+            <div class="pillar-body">Someone needs to keep the trains running. We handle project management, event coordination, timelines, budgets, and athlete concierge —  so you can focus on the big picture while we take care of the details.</div>
           </div>
         </div>
       </div>
@@ -1853,7 +1860,7 @@
         <div class="section-head">
           <div class="section-head-left reveal">
             <div class="section-label">Our Work</div>
-            <h2 class="section-title">SOME THINGS WE&#39;VE DONE.</h2>
+            <h2 class="section-title">SOME THINGS WE'VE DONE.</h2>
           </div>
         </div>
         <div class="work-grid">
@@ -1896,17 +1903,17 @@
         </div>
 
         <div class="logo-strip">
-          <div class="logo-label">Brands we&#39;ve worked with, directly and through trusted partners</div>
-          <div class="logo-box"><img src="images/Treble-logo.png" alt="Treble Group" class="cms-client-logo"></div>
-          <div class="logo-box"><img src="images/OFX-logo.png" alt="OFX" class="cms-client-logo"></div>
+          <div class="logo-label">Brands we've worked with, directly and through trusted partners</div>
           <div class="logo-box"><img src="images/adi-logo.png" alt="adidas" class="cms-client-logo"></div>
-          <div class="logo-box logo-box--color"><img src="images/Jota-logo.png" alt="Team Jota" class="cms-client-logo cms-client-logo--color"></div>
           <div class="logo-box"><img src="images/DHL-logo.png" alt="DHL" class="cms-client-logo"></div>
-          <div class="logo-box"><img src="images/YMS-Logo.png" alt="YMS" class="cms-client-logo"></div>
-          <div class="logo-box"><img src="images/nb-logo.png" alt="NB" class="cms-client-logo"></div>
-          <div class="logo-box"><img src="images/Springboks-logo.png" alt="Springboks" class="cms-client-logo"></div>
-          <div class="logo-box"><img src="images/urc-logo.png" alt="URC" class="cms-client-logo"></div>
+          <div class="logo-box"><img src="images/Jota-logo.png" alt="Jota" class="cms-client-logo"></div>
+          <div class="logo-box"><img src="images/nb-logo.png" alt="New Balance" class="cms-client-logo"></div>
+          <div class="logo-box"><img src="images/OFX-logo.png" alt="OFX" class="cms-client-logo"></div>
           <div class="logo-box"><img src="images/sarac-logo.png" alt="Saracens" class="cms-client-logo"></div>
+          <div class="logo-box"><img src="images/Springboks-logo.png" alt="Springboks" class="cms-client-logo"></div>
+          <div class="logo-box"><img src="images/Treble-logo.png" alt="Treble Group" class="cms-client-logo"></div>
+          <div class="logo-box"><img src="images/urc-logo.png" alt="URC" class="cms-client-logo"></div>
+          <div class="logo-box"><img src="images/YMS-Logo.png" alt="YMS" class="cms-client-logo"></div>
         </div>
       </div>
     </section>
@@ -1981,7 +1988,7 @@
               <a href="https://www.linkedin.com/in/samundy" target="_blank" rel="noopener" class="tribe-linkedin" aria-label="Sarah Mundy LinkedIn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
               </a>
-              <p class="tribe-bio">Sports marketer. Strategist. AI enthusiast. Marathon runner and mountain climber because sitting still was never really my thing. I&#39;ve spent my career across brands, rights holders, and agencies &#8212; from Johannesburg to Tokyo to London and built Project Brand to bring all that experience together in one place. I move fast, deliver sharp, and genuinely love this industry. Also firmly believe that if you can&#39;t laugh in sports marketing, you&#39;re probably taking yourself too seriously.</p>
+              <p class="tribe-bio">Sports marketer. Strategist. AI enthusiast. Marathon runner and mountain climber because sitting still was never really my thing. I've spent my career across brands, rights holders, and agencies —  from Johannesburg to Tokyo to London and built Project Brand to bring all that experience together in one place. I move fast, deliver sharp, and genuinely love this industry. Also firmly believe that if you can't laugh in sports marketing, you're probably taking yourself too seriously.</p>
             </div>
           </article>
           <article class="tribe-card reveal reveal-delay-1" data-cms-field="tribe-member-2">
@@ -1992,7 +1999,7 @@
               <a href="https://www.linkedin.com/in/wesley-tam" target="_blank" rel="noopener" class="tribe-linkedin" aria-label="Wesley Tam LinkedIn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
               </a>
-              <p class="tribe-bio">Running addict. Returning golfer (after a ten-year hiatus &#8212; still figuring out the swing). Sports marketer who&#39;s worked with the likes of Novak Djokovic, Iga Swiatek, the Springboks and the Wallabies and yes, I&#39;ve packed the boxes, survived the 2am hotel rooms, and lived the grind that comes with the glossy campaigns.</p>
+              <p class="tribe-bio">Running addict. Returning golfer (after a ten-year hiatus —  still figuring out the swing). Sports marketer who's worked with the likes of Novak Djokovic, Iga Swiatek, the Springboks and the Wallabies and yes, I've packed the boxes, survived the 2am hotel rooms, and lived the grind that comes with the glossy campaigns.</p>
               <p class="tribe-bio">I love bringing brand and athlete partnerships to life and I believe in two simple rules: chop wood, carry water .. and always be super vibey.</p>
             </div>
           </article>
@@ -2006,7 +2013,7 @@
           </article>
         </div>
         <div class="network-banner reveal">
-          We also work with a trusted network of specialists across creative, digital, content, and production &#8212; so when a project needs more firepower, we scale up without the agency price tag.
+          We also work with a trusted network of specialists across creative, digital, content, and production —  so when a project needs more firepower, we scale up without the agency price tag.
         </div>
       </div>
     </section>
@@ -2017,8 +2024,8 @@
         <div class="two-col">
           <div class="reveal">
             <div class="section-label">Get In Touch</div>
-            <h2 class="contact-headline">LET&#39;S MAKE SOMETHING WORTH TALKING ABOUT.</h2>
-            <p class="contact-sub">Got a project, a problem, or just a question? Drop us a message. We&#39;re always up for a good conversation about sport, marketing, and where the two are heading.</p>
+            <h2 class="contact-headline">LET'S MAKE SOMETHING WORTH TALKING ABOUT.</h2>
+            <p class="contact-sub">Got a project, a problem, or just a question? Drop us a message. We're always up for a good conversation about sport, marketing, and where the two are heading.</p>
             <div class="contact-links">
               <a href="mailto:sarah@theprojectbrand.com" class="contact-link">
                 <div class="contact-link-icon">
@@ -2036,7 +2043,7 @@
                 <div class="contact-link-icon">
                   <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 </div>
-                London, UK &#8212; working globally
+                London, UK —  working globally
               </div>
             </div>
           </div>
@@ -2048,7 +2055,7 @@
               </div>
               <div class="form-row">
                 <label class="form-label" for="org">Organisation</label>
-                <input class="form-input" id="org" name="organisation" type="text" placeholder="Where you&#39;re from">
+                <input class="form-input" id="org" name="organisation" type="text" placeholder="Where you're from">
               </div>
               <div class="form-row">
                 <label class="form-label" for="email">Email</label>
@@ -2103,7 +2110,7 @@
   <footer class="footer" role="contentinfo">
     <div class="footer-logo" data-cms-field="footer-logo">
       <img src="images/logo1.png" alt="Project Brand" class="cms-logo cms-logo--footer">
-      <p class="footer-tagline" data-cms-field="footer-tagline">Making sports brands win &#8212; sharper, faster, smarter.</p>
+      <p class="footer-tagline" data-cms-field="footer-tagline">Making sports brands win —  sharper, faster, smarter.</p>
     </div>
     <div class="footer-copy" data-cms-field="footer-copyright">&#169; 2026 Project Brand. All Right Reserved</div>
   </footer>
