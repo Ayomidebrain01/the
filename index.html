@@ -711,17 +711,17 @@
     }
 
     /* ─────────────────────────────────────────────
-       WORK — NEW GRID LAYOUT
+       WORK — THREE COLUMN GRID LAYOUT
     ───────────────────────────────────────────── */
     .work-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 24px;
     }
     .work-item:nth-child(3) {
-      grid-column: 1 / -1;
-      justify-self: center;
-      width: calc(50% - 12px);
+      grid-column: auto;
+      justify-self: stretch;
+      width: 100%;
     }
     .work-item {
       position: relative;
@@ -834,11 +834,6 @@
     @media (max-width: 900px) {
       .work-grid { grid-template-columns: 1fr; }
       .work-item { aspect-ratio: 16/9; }
-      .work-item:nth-child(3) {
-        grid-column: auto;
-        justify-self: stretch;
-        width: 100%;
-      }
     }
 
     /* ── Work Popup Modal ── */
@@ -1617,7 +1612,7 @@
     }
 
     /* ─────────────────────────────────────────────
-       CMS UTILITY CLASSES - for clean content management
+       CMS UTILITY CLASSES
     ───────────────────────────────────────────── */
     .cms-logo { height: 48px; width: auto; display: block; }
     .cms-logo--nav { height: 48px; }
@@ -1627,7 +1622,6 @@
     .cms-client-logo { height: 40px; width: auto; max-width: 140px; filter: brightness(0) invert(1); opacity: 1; object-fit: contain; }
     .cms-client-logo--nb { height: 40px; }
     .cms-client-logo--color { filter: none !important; opacity: 1 !important; }
-    /* Larger logos for smaller-looking brands */
     .logo-box img[src*="sarac"] { height: 52px !important; }
     .logo-box img[src*="Springboks"] { height: 52px !important; }
     .logo-box img[src*="Treble"] { height: 50px !important; }
@@ -1732,10 +1726,10 @@
       </video>
       <div class="hero-video-overlay"></div>
       <div class="hero-eyebrow">Sports Marketing Studio &mdash; London</div>
-     <h1 class="hero-headline">
-  SPORT DOESN'T STAND STILL.
-  <span class="accent">NEITHER DO WE.</span>
-</h1>
+      <h1 class="hero-headline">
+        SPORT DOESN'T STAND STILL.
+        <span class="accent">NEITHER DO WE.</span>
+      </h1>
       <p class="hero-sub">An agile sports marketing studio powered by sharp strategy, smart AI tools, and serious experience.</p>
       <div class="scroll-hint">Scroll</div>
     </section>
@@ -2154,17 +2148,14 @@
     // ── Auto-clear cache after 1 hour ──
     (function() {
       const CACHE_KEY = 'cacheTimestamp';
-      const ONE_HOUR = 60 * 60 * 1000; // 1 hour in milliseconds
-
+      const ONE_HOUR = 60 * 60 * 1000;
       const now = Date.now();
       const lastClear = localStorage.getItem(CACHE_KEY);
-
       if (lastClear) {
         const timeSinceLastClear = now - parseInt(lastClear, 10);
         if (timeSinceLastClear >= ONE_HOUR) {
           localStorage.clear();
           sessionStorage.clear();
-          console.log('Cache cleared after 1 hour');
         }
       }
       localStorage.setItem(CACHE_KEY, now.toString());
@@ -2228,7 +2219,6 @@
       link.classList.add('active');
     }
 
-    // Set initial position to Home link after layout settles
     const homeLink = document.querySelector('.nav-links a[href="#home"]');
     if (homeLink) {
       requestAnimationFrame(() => {
@@ -2236,7 +2226,6 @@
       });
     }
 
-    // Handle scroll-based active state
     let currentActiveSection = 'home';
     const ioNav = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -2249,14 +2238,12 @@
     }, { threshold: 0.3, rootMargin: '-60px 0px -40% 0px' });
     sections.forEach(s => ioNav.observe(s));
 
-    // Handle click-based navigation
     navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         moveIndicatorToLink(link);
       });
     });
 
-    // Recalculate on resize with animation disabled during resize
     let resizeTimeout;
     window.addEventListener('resize', () => {
       navIndicator.style.transition = 'none';
@@ -2307,7 +2294,6 @@
         });
       });
 
-      // Auto-advance every 6 seconds
       setInterval(nextSlide, 6000);
     }
 
@@ -2358,7 +2344,6 @@
     function openWorkModal(workId) {
       const data = workData[workId];
       if (!data) return;
-      
       modalImage.src = data.image;
       modalImage.alt = data.title;
       modalClient.textContent = data.client;
@@ -2366,7 +2351,6 @@
       modalChallenge.textContent = data.challenge;
       modalSolution.textContent = data.solution;
       modalResult.textContent = data.result;
-      
       workModal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
@@ -2378,7 +2362,6 @@
       }
     }
 
-    // Close modal on Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && workModal.classList.contains('active')) {
         workModal.classList.remove('active');
@@ -2389,17 +2372,14 @@
     // ── Back to Top Button with Progress ──
     const backToTopBtn = document.getElementById('backToTop');
     const progressCircle = document.getElementById('progressCircle');
-    const circumference = 2 * Math.PI * 22; // r=22
+    const circumference = 2 * Math.PI * 22;
 
     function updateProgress() {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = scrollTop / docHeight;
       const offset = circumference - (scrollPercent * circumference);
-      
       progressCircle.style.strokeDashoffset = offset;
-      
-      // Show/hide button based on scroll position
       if (scrollTop > 200) {
         backToTopBtn.classList.add('visible');
       } else {
@@ -2408,7 +2388,7 @@
     }
 
     window.addEventListener('scroll', updateProgress, { passive: true });
-    
+
     backToTopBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
