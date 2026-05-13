@@ -960,8 +960,6 @@
       margin-top: 56px;
       border-top: 1px solid var(--border);
       overflow: hidden;
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     }
     .logo-label {
       width: 100%;
@@ -979,8 +977,12 @@
       gap: 40px;
       width: max-content;
       will-change: transform;
+      transform: translate3d(0, 0, 0);
+      -webkit-transform: translate3d(0, 0, 0);
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
+      -webkit-perspective: 1000px;
+      perspective: 1000px;
       -webkit-animation: scrollLogos 20s linear infinite;
       animation: scrollLogos 20s linear infinite;
     }
@@ -1900,16 +1902,16 @@
             <div class="work-item-filename">/ united-rugby-champions.jpg</div>
             <div class="work-item-image"><img src="images/work1.webp" alt="URC Rugby Partnership"></div>
             <div class="work-item-footer">
-              <span class="work-item-name">Adidas Running</span>
-              <span class="work-item-category">Athlete Activation</span>
+              <span class="work-item-name">Adidas Running: Athlete Activation</span>
+              <span class="work-item-category">Commercial Partnership Programme</span>
             </div>
           </div>
-          <div class="work-item reveal reveal-delay-1" data-work="habari" onclick="openWorkModal('habari')">
+          <div class="work-item reveal reveal-delay-1" data-work="habarii" onclick="openWorkModal('habarii')">
             <span class="work-item-number">002</span>
             <button class="work-item-btn" aria-label="View project details">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
             </button>
-            <div class="work-item-filename">/ habari-media.jpg</div>
+            <div class="work-item-filename">/ habarii-media.jpg</div>
             <div class="work-item-image"><img src="images/work2.webp" alt="Habari Media"></div>
             <div class="work-item-footer">
               <span class="work-item-name">Habari Media</span>
@@ -1990,7 +1992,7 @@
               <div class="quote-card">
                 <div class="quote-text">&#8220;The quality of the proposal was what got us over the line. Sarah understood exactly what we needed and delivered work that made the decision easy.&#8221;</div>
                 <div class="quote-footer">
-                  <img src="images/Habari-Media-Logo.png" alt="Habari Media" class="quote-logo">
+                  <img src="images/Habarii-Media-Logo.png" alt="Habari Media" class="quote-logo">
                   <div class="quote-divider"></div>
                   <div class="quote-attr">
                     <span class="quote-name">Sports Media Client</span>
@@ -2339,7 +2341,7 @@
         solution: 'Developed the partnership strategy from scratch, created activation plans tied to measurable KPIs, and managed partner relationships across the full commercial calendar. Every campaign was designed to connect fan engagement directly to sponsor ROI.',
         result: 'A structured commercial programme that gave partners clarity, confidence, and a reason to stay. Helped shape how the organisation approached partnership value long-term.'
       },
-      habari: {
+      habarii: {
         image: 'images/work2.webp',
         client: 'Media — Habari Media',
         title: 'Commercial Revenue Strategy',
