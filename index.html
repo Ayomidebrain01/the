@@ -951,6 +951,8 @@
       margin-top: 56px;
       border-top: 1px solid var(--border);
       overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
     }
     .logo-label {
       width: 100%;
@@ -968,6 +970,8 @@
       gap: 40px;
       width: max-content;
       will-change: transform;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
       -webkit-animation: scrollLogos 20s linear infinite;
       animation: scrollLogos 20s linear infinite;
     }
@@ -1887,8 +1891,8 @@
             <div class="work-item-filename">/ united-rugby-champions.jpg</div>
             <div class="work-item-image"><img src="images/work1.webp" alt="URC Rugby Partnership"></div>
             <div class="work-item-footer">
-              <span class="work-item-name">Adidas Running</span>
-              <span class="work-item-category">Athlete Activation</span>
+              <span class="work-item-name">Adidas Running: Athlete Activation</span>
+              <span class="work-item-category">Commercial Partnership Programme</span>
             </div>
           </div>
           <div class="work-item reveal reveal-delay-1" data-work="habari" onclick="openWorkModal('habari')">
