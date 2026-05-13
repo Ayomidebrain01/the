@@ -919,7 +919,7 @@
       line-height: 1.2;
     }
     .work-modal-section {
-      margin-bottom: 21px;
+      margin-bottom: 28px;
     }
     .work-modal-section:last-child {
       margin-bottom: 0;
@@ -942,11 +942,6 @@
       .work-modal-body { padding: 28px; }
       .work-modal-image { height: 200px; }
       .work-modal-title { font-size: 24px; }
-      .work-modal-text {
-        font-size: 14px;
-        color: var(--text-2);
-        line-height: 1.7;
-      }
     }
 
     /* Logo strip - auto-scrolling marquee */
@@ -971,22 +966,33 @@
       display: flex;
       align-items: center;
       gap: 40px;
-      animation: scrollLogos 20s linear infinite;
       width: max-content;
+      will-change: transform;
+      -webkit-animation: scrollLogos 20s linear infinite;
+      animation: scrollLogos 20s linear infinite;
+    }
+    @-webkit-keyframes scrollLogos {
+      0%   { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+      100% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
     }
     @keyframes scrollLogos {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      0%   { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+      100% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
     }
     .logo-box {
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 0 16px;
+      flex-shrink: 0;
       filter: grayscale(1) opacity(0.6);
+      -webkit-filter: grayscale(1) opacity(0.6);
       transition: filter 0.3s, opacity 0.3s;
     }
-    .logo-box:hover { filter: grayscale(0) opacity(1); }
+    .logo-box:hover {
+      filter: grayscale(0) opacity(1);
+      -webkit-filter: grayscale(0) opacity(1);
+    }
     .logo-box img {
       height: 40px;
       width: auto;
@@ -1881,19 +1887,19 @@
             <div class="work-item-filename">/ united-rugby-champions.jpg</div>
             <div class="work-item-image"><img src="images/work1.webp" alt="URC Rugby Partnership"></div>
             <div class="work-item-footer">
-              <span class="work-item-name">United Rugby Champions</span>
-              <span class="work-item-category">Commercial Partnership Programme</span>
+              <span class="work-item-name">Adidas Running</span>
+              <span class="work-item-category">Athlete Activation</span>
             </div>
           </div>
-          <div class="work-item reveal reveal-delay-1" data-work="habarii" onclick="openWorkModal('habarii')">
+          <div class="work-item reveal reveal-delay-1" data-work="habari" onclick="openWorkModal('habari')">
             <span class="work-item-number">002</span>
             <button class="work-item-btn" aria-label="View project details">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
             </button>
-            <div class="work-item-filename">/ habarii-media.jpg</div>
-            <div class="work-item-image"><img src="images/work2.webp" alt="Habarii Media"></div>
+            <div class="work-item-filename">/ habari-media.jpg</div>
+            <div class="work-item-image"><img src="images/work2.webp" alt="Habari Media"></div>
             <div class="work-item-footer">
-              <span class="work-item-name">Habarii Media</span>
+              <span class="work-item-name">Habari Media</span>
               <span class="work-item-category">Commercial Revenue Strategy</span>
             </div>
           </div>
@@ -1971,7 +1977,7 @@
               <div class="quote-card">
                 <div class="quote-text">&#8220;The quality of the proposal was what got us over the line. Sarah understood exactly what we needed and delivered work that made the decision easy.&#8221;</div>
                 <div class="quote-footer">
-                  <img src="images/Habarii-Media-Logo.png" alt="Habarii Media" class="quote-logo">
+                  <img src="images/habari-Media-Logo.png" alt="Habari Media" class="quote-logo">
                   <div class="quote-divider"></div>
                   <div class="quote-attr">
                     <span class="quote-name">Sports Media Client</span>
@@ -2320,9 +2326,9 @@
         solution: 'Developed the partnership strategy from scratch, created activation plans tied to measurable KPIs, and managed partner relationships across the full commercial calendar. Every campaign was designed to connect fan engagement directly to sponsor ROI.',
         result: 'A structured commercial programme that gave partners clarity, confidence, and a reason to stay. Helped shape how the organisation approached partnership value long-term.'
       },
-      habarii: {
+      habari: {
         image: 'images/work2.webp',
-        client: 'Media — Habarii Media',
+        client: 'Media — Habari Media',
         title: 'Commercial Revenue Strategy',
         challenge: 'A fast-growing sports media business needed commercial proposals that could land serious partnerships — the kind that move a business forward, not just keep the lights on.',
         solution: 'Built out the commercial revenue decks and partnership proposals from the ground up. Positioned the business as a credible, high-value partner for brands looking to reach engaged sports audiences. Made sure the numbers, the narrative, and the ask all made sense together.',
