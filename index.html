@@ -956,10 +956,29 @@
     /* Logo strip - auto-scrolling marquee */
     .logo-strip {
       position: relative;
-      padding-top: 56px;
+      padding-top: 32px;
       margin-top: 56px;
       border-top: 1px solid var(--border);
       overflow: hidden;
+      width: 100%;
+    }
+    .logo-strip::before,
+    .logo-strip::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 150px;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .logo-strip::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg-2), transparent);
+    }
+    .logo-strip::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg-2), transparent);
     }
     .logo-label {
       width: 100%;
@@ -970,36 +989,37 @@
       text-transform: uppercase;
       text-align: center;
       margin-bottom: 24px;
+      position: relative;
+      z-index: 3;
     }
     .logo-track {
       display: flex;
       align-items: center;
-      gap: 0;
       width: max-content;
+      gap: 0;
       will-change: transform;
-      transform: translate3d(0, 0, 0);
-      -webkit-transform: translate3d(0, 0, 0);
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
-      -webkit-perspective: 1000px;
-      perspective: 1000px;
-      -webkit-animation: scrollLogos 30s linear infinite;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
       animation: scrollLogos 30s linear infinite;
-    }
-    @-webkit-keyframes scrollLogos {
-      0%   { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
-      100% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
+      -webkit-animation: scrollLogos 30s linear infinite;
     }
     @keyframes scrollLogos {
-      0%   { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
-      100% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
+      0% { transform: translate3d(0, 0, 0); }
+      100% { transform: translate3d(-50%, 0, 0); }
+    }
+    @-webkit-keyframes scrollLogos {
+      0% { -webkit-transform: translate3d(0, 0, 0); }
+      100% { -webkit-transform: translate3d(-50%, 0, 0); }
     }
     .logo-box {
+      flex: 0 0 auto;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 36px;
-      flex-shrink: 0;
+      padding: 0 35px;
+      margin: 0;
       filter: grayscale(1) opacity(0.6);
       -webkit-filter: grayscale(1) opacity(0.6);
       transition: filter 0.3s, opacity 0.3s;
@@ -1012,6 +1032,7 @@
       height: 40px;
       width: auto;
       object-fit: contain;
+      display: block;
     }
     .logo-box--color { filter: none; }
     .logo-box--color img { filter: none !important; opacity: 1 !important; }
