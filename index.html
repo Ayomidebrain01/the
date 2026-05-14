@@ -1002,16 +1002,30 @@
       backface-visibility: hidden;
       -webkit-transform-style: preserve-3d;
       transform-style: preserve-3d;
+      transform: translateX(0);
+      -webkit-transform: translateX(0);
       animation: scrollLogos 30s linear infinite;
       -webkit-animation: scrollLogos 30s linear infinite;
     }
     @keyframes scrollLogos {
-      0% { transform: translate3d(0, 0, 0); }
-      100% { transform: translate3d(-50%, 0, 0); }
+      0% {
+        transform: translateX(0);
+        -webkit-transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+      }
     }
     @-webkit-keyframes scrollLogos {
-      0% { -webkit-transform: translate3d(0, 0, 0); }
-      100% { -webkit-transform: translate3d(-50%, 0, 0); }
+      0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+      }
+      100% {
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+      }
     }
     .logo-box {
       flex: 0 0 auto;
