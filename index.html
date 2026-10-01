@@ -7,6 +7,12 @@
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <title>Project Brand —  Agile Sports Marketing Studio, London</title>
+  <meta name="description" content="Project Brand is an agile sports marketing studio based in London. Powered by sharp strategy, smart AI tools and serious experience across global sports brands.">
+<meta name="keywords" content="sports marketing, sports agency, London sports marketing, AI sports marketing, sports brand strategy">
+<meta property="og:title" content="Project Brand — Agile Sports Marketing Studio, London">
+<meta property="og:description" content="Project Brand is an agile sports marketing studio based in London. Powered by sharp strategy, smart AI tools and serious experience.">
+<meta property="og:url" content="https://www.theprojectbrand.com">
+<meta property="og:type" content="website">
   <link rel="icon" type="image/png" href="images/favi.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -243,6 +249,7 @@
     /* Video background */
     .hero-video {
       position: absolute;
+      /* filter: grayscale(100%); */
       top: 0;
       left: 0;
       width: 100%;
@@ -711,17 +718,12 @@
     }
 
     /* ─────────────────────────────────────────────
-       WORK — THREE COLUMN GRID LAYOUT
+       WORK — TWO BY TWO GRID
     ───────────────────────────────────────────── */
     .work-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 24px;
-    }
-    .work-item:nth-child(3) {
-      grid-column: auto;
-      justify-self: stretch;
-      width: 100%;
     }
     .work-item {
       position: relative;
@@ -730,7 +732,7 @@
       border: 1px solid var(--border);
       border-radius: var(--r-lg);
       overflow: hidden;
-      cursor: pointer;
+      cursor: default;
       transition: all 0.4s ease;
     }
     .work-item::before {
@@ -768,6 +770,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+    .work-item-image img.is-portrait {
+      object-position: center 30%;
     }
     .work-item-filename {
       position: absolute;
@@ -811,6 +816,7 @@
       max-width: 150px;
     }
     .work-item-btn {
+      display: none;
       position: absolute;
       top: 20px;
       right: 20px;
@@ -831,7 +837,7 @@
       border-color: var(--accent);
       color: var(--bg);
     }
-    @media (max-width: 900px) {
+    @media (max-width: 640px) {
       .work-grid { grid-template-columns: 1fr; }
       .work-item { aspect-ratio: 16/9; }
     }
@@ -1061,17 +1067,13 @@
       padding: 0 0x;
     }
     .testimonial-track {
-      position: relative;
+      display: grid;
       width: 100%;
-      height: 300px;
-      overflow: hidden;
+      height: auto;
     }
     .testimonial-slide {
-      position: absolute;
-      top: 0;
-      left: 0;
+      grid-area: 1 / 1;
       width: 100%;
-      height: 100%;
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.5s ease, visibility 0.5s ease;
@@ -1109,6 +1111,11 @@
       object-fit: contain;
       object-position: left center;
       flex-shrink: 0;
+    }
+    .quote-logo--kade {
+      height: 52px;
+      width: 52px;
+      filter: brightness(0) invert(1);
     }
     .quote-divider {
       width: 1px;
@@ -1178,16 +1185,16 @@
     .carousel-btn.next { right: 0; }
     @media (max-width: 1100px) {
       .testimonial-carousel { padding: 0 0px; }
-      .testimonial-track { height: 280px; }
       .quote-card { max-width: 600px; }
       .quote-text { font-size: 20px; }
     }
     @media (max-width: 640px) {
       .testimonial-carousel { padding: 0 0px; }
-      .testimonial-track { height: 320px; }
       .quote-card { max-width: 100%; }
       .quote-text { font-size: 16px; line-height: 1.55; margin-bottom: 24px; }
       .quote-logo { height: 20px; width: 70px; }
+      .quote-logo--kade { height: 44px; width: 44px; }
+      .quote-card { padding: 0 48px; }
       .quote-divider { height: 24px; }
       .quote-footer { gap: 12px; }
       .quote-name { font-size: 13px; }
@@ -1689,6 +1696,7 @@
     .logo-box img[src*="nb-logo"] { height: 56px !important; }
     .logo-box img[src*="DHL"] { height: 48px !important; }
     .logo-box img[src*="YMS"] { height: 52px !important; }
+    .logo-box img[src*="kade-logo"] { height: 56px !important; max-width: none; }
     .logo-box--color .cms-client-logo--color { filter: none !important; opacity: 1 !important; }
     .logo-box--color:hover .cms-client-logo--color { filter: none !important; opacity: 1 !important; }
     .cms-kaizen-badge {
@@ -1929,19 +1937,19 @@
           </div>
         </div>
         <div class="work-grid">
-          <div class="work-item reveal" data-work="urc" onclick="openWorkModal('urc')">
+          <div class="work-item reveal" data-work="urc">
             <span class="work-item-number">001</span>
             <button class="work-item-btn" aria-label="View project details">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
             </button>
             <div class="work-item-filename">/ united-rugby-champions.jpg</div>
-            <div class="work-item-image"><img src="images/work1.webp" alt="URC Rugby Partnership"></div>
+            <div class="work-item-image"><img src="images/work3.webp" alt="URC Rugby Partnership"></div>
             <div class="work-item-footer">
               <span class="work-item-name">Adidas Running</span>
-              <span class="work-item-category">Athlete Activation</span>
+              <span class="work-item-category">Athelte Activation & Storytelling</span>
             </div>
           </div>
-          <div class="work-item reveal reveal-delay-1" data-work="habari" onclick="openWorkModal('habari')">
+          <div class="work-item reveal reveal-delay-1" data-work="habari">
             <span class="work-item-number">002</span>
             <button class="work-item-btn" aria-label="View project details">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
@@ -1953,17 +1961,29 @@
               <span class="work-item-category">Commercial Revenue Strategy</span>
             </div>
           </div>
-          <div class="work-item reveal reveal-delay-2" data-work="adidas" onclick="openWorkModal('adidas')">
+          <div class="work-item reveal reveal-delay-2" data-work="adidas">
             <span class="work-item-number">003</span>
             <button class="work-item-btn" aria-label="View project details">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
             </button>
             <div class="work-item-filename">/ adidas-running.jpg</div>
-            <div class="work-item-image"><img src="images/work3.webp" alt="Adidas Product Launch"></div>
+            <div class="work-item-image"><img src="images/work1.webp" alt="Adidas Product Launch"></div>
             <div class="work-item-footer">
               <span class="work-item-name">Adidas Running</span>
               <span class="work-item-category">Product Franchise Launch</span>
             </div> 
+          </div>
+          <div class="work-item reveal" data-work="kade">
+            <span class="work-item-number">004</span>
+            <button class="work-item-btn" aria-label="View project details">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </button>
+            <div class="work-item-filename">/ kade.jpg</div>
+            <div class="work-item-image"><img src="images/Ironboy.webp" alt="KADE brand production" class="is-portrait"></div>
+            <div class="work-item-footer">
+              <span class="work-item-name">KADE</span>
+              <span class="work-item-category">Brand Strategy and Production</span>
+            </div>
           </div>
         </div>
 
@@ -1980,6 +2000,8 @@
             <div class="logo-box"><img src="images/Treble-logo.png" alt="Treble Group" class="cms-client-logo"></div>
             <div class="logo-box"><img src="images/urc-logo.png" alt="URC" class="cms-client-logo"></div>
             <div class="logo-box"><img src="images/YMS-Logo.png" alt="YMS" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/kade-logo.png" alt="KADE" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/DZ logo.png" alt="Die Zwei" class="cms-client-logo"></div>
 
             <!-- Duplicate for seamless loop -->
             
@@ -1993,6 +2015,8 @@
             <div class="logo-box"><img src="images/Treble-logo.png" alt="Treble Group" class="cms-client-logo"></div>
             <div class="logo-box"><img src="images/urc-logo.png" alt="URC" class="cms-client-logo"></div>
             <div class="logo-box"><img src="images/YMS-Logo.png" alt="YMS" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/kade-logo.png" alt="KADE" class="cms-client-logo"></div>
+            <div class="logo-box"><img src="images/DZ logo.png" alt="Die Zwei" class="cms-client-logo"></div>
           </div>
         </div>
       </div>
@@ -2038,6 +2062,19 @@
                 </div>
               </div>
             </div>
+            <div class="testimonial-slide">
+              <div class="quote-card">
+                <div class="quote-text">"Working with The Project Brand has given KADE a completely different perspective on what is possible for a brand. Having a team with experience across global campaigns for brands like adidas has been incredibly valuable - especially their ability to take that level of expertise and scale to where KADE is today while showing us a clear path of where we can go next.&#8221;</div>
+                <div class="quote-footer">
+                  <img src="images/kade-logo.png" alt="KADE" class="quote-logo quote-logo--kade">
+                  <div class="quote-divider"></div>
+                  <div class="quote-attr">
+                    <span class="quote-name">Skyler Kade</span>
+                    <span class="quote-title">KADE</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <button class="carousel-btn next" aria-label="Next testimonial">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
@@ -2045,6 +2082,7 @@
           <div class="carousel-nav">
             <span class="carousel-dot active" data-index="0"></span>
             <span class="carousel-dot" data-index="1"></span>
+            <span class="carousel-dot" data-index="2"></span>
           </div>
         </div>
       </div>
@@ -2394,6 +2432,15 @@
         solution: 'Led global communications strategy for the franchise launch. Built the campaign narrative, developed sell-in and sell-out toolkits, and ensured a seamless retail experience from global brief to local execution.',
         result: 'A product launch that landed with consistency and impact across multiple markets — with the comms strategy doing the heavy lifting from day one.'
       },
+      kade: {
+        image: 'images/Ironboy.webp',
+        imagePosition: 'center 24%',
+        client: 'KADE',
+        title: 'Brand Strategy and Production',
+        challenge: 'KADE needed brand strategy and production that could carry the standard of global campaign work, scaled to where the brand is today.',
+        solution: 'Strategy and production were built together, drawing on experience from global brand campaigns and setting a clear path for where KADE can go next.',
+        result: 'A sharper view of what is possible for the brand, with the strategy and the work pointing the same way.'
+      },
       treble: {
         image: 'images/work1.webp',
         client: 'Sports Marketing — Treble Group',
@@ -2409,6 +2456,7 @@
       if (!data) return;
       modalImage.src = data.image;
       modalImage.alt = data.title;
+      modalImage.style.objectPosition = data.imagePosition || 'center center';
       modalClient.textContent = data.client;
       modalTitle.textContent = data.title;
       modalChallenge.textContent = data.challenge;
