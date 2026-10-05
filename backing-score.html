@@ -478,14 +478,8 @@
       .result-grid { gap: 18px; }
     }
     @media (max-width: 900px) {
-      .nav-links { display: none; }
+      .nav-links, .nav .nav-cta { display: none; }
       .nav-hamburger { display: flex; right: 20px; }
-      .nav .nav-cta {
-        right: 58px;
-        font-size: 12px;
-        padding: 9px 12px;
-        white-space: nowrap;
-      }
       .nav, .hero, .section, .footer { padding-left: 24px; padding-right: 24px; }
       .nav-logo { left: 24px; }
       .hero { min-height: auto; padding-top: 130px; padding-bottom: 72px; }
@@ -498,7 +492,6 @@
     @media (max-width: 640px) {
       .use-grid, .steps, .result-grid { grid-template-columns: 1fr; }
       .hero h1 { max-width: none; }
-      .nav .nav-cta { font-size: 11px; padding: 8px 10px; }
     }
   </style>
 </head>
