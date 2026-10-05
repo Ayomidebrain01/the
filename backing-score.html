@@ -387,6 +387,27 @@
     }
     .step p { font-size: 15px; color: var(--text-2); line-height: 1.65; }
 
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 40px;
+    }
+    .result-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px 26px 32px;
+    }
+    .result-card h3 {
+      font-family: var(--font-d);
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .result-card p { font-size: 15px; color: var(--text-2); line-height: 1.65; }
+
     .assess {
       background:
         radial-gradient(circle at 80% 20%, rgba(200,227,52,0.12), transparent 36%),
@@ -404,13 +425,12 @@
     }
     .tf-embed[hidden] { display: none; }
 
-    .brand-close {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 40px;
+    .brand-further { padding-top: 72px; padding-bottom: 72px; }
+    .brand-further h2 {
+      font-size: clamp(26px, 3vw, 34px);
+      margin-bottom: 12px;
     }
-    .brand-close .prose { margin-bottom: 28px; }
+    .brand-further .prose { margin-bottom: 24px; font-size: 16px; }
 
     .footer {
       position: relative;
@@ -454,11 +474,18 @@
 
     @media (max-width: 1100px) {
       .dim-card, .dim-card:nth-child(4), .dim-card:nth-child(5) { grid-column: span 3; }
-      .steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .steps, .result-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .result-grid { gap: 18px; }
     }
     @media (max-width: 900px) {
-      .nav-links, .nav .nav-cta { display: none; }
-      .nav-hamburger { display: flex; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; right: 20px; }
+      .nav .nav-cta {
+        right: 58px;
+        font-size: 12px;
+        padding: 9px 12px;
+        white-space: nowrap;
+      }
       .nav, .hero, .section, .footer { padding-left: 24px; padding-right: 24px; }
       .nav-logo { left: 24px; }
       .hero { min-height: auto; padding-top: 130px; padding-bottom: 72px; }
@@ -469,8 +496,9 @@
       .dim-card, .dim-card:nth-child(4), .dim-card:nth-child(5) { grid-column: auto; }
     }
     @media (max-width: 640px) {
-      .use-grid, .steps { grid-template-columns: 1fr; }
+      .use-grid, .steps, .result-grid { grid-template-columns: 1fr; }
       .hero h1 { max-width: none; }
+      .nav .nav-cta { font-size: 11px; padding: 8px 10px; }
     }
   </style>
 </head>
@@ -506,7 +534,7 @@
       <div class="hero-inner">
         <p class="eyebrow">Make It Land</p>
         <h1>Does your idea have what it takes to be <span>backed?</span></h1>
-        <p class="hero-copy">The Backing Score is a short Project Brand diagnostic designed to help you assess whether an important idea is clear enough to be understood, believed in and backed.</p>
+        <p class="hero-copy">The Backing Score is a short Project Brand diagnostic that helps you assess whether an important idea is clear enough to be understood, believed in and backed.</p>
         <p class="hero-copy">Whether you're preparing a launch, partnership proposition, commercial pitch, campaign or strategic idea, the assessment gives you a structured way to look at what could help your idea land.</p>
         <a class="btn-primary" href="#assessment">Take The Backing Score <span aria-hidden="true">→</span></a>
         <p class="hero-note">A short assessment. A clearer view.</p>
@@ -612,24 +640,44 @@
       </div>
     </section>
 
+    <section class="section alt">
+      <div class="section-inner">
+        <h2 class="reveal">What you'll get</h2>
+        <div class="result-grid">
+          <article class="result-card reveal">
+            <h3>Your Backing Score</h3>
+            <p>A snapshot of how ready your idea is to be understood, believed in and backed.</p>
+          </article>
+          <article class="result-card reveal reveal-delay-1">
+            <h3>Your strongest areas</h3>
+            <p>See where your proposition is already working well.</p>
+          </article>
+          <article class="result-card reveal reveal-delay-2">
+            <h3>Areas to examine</h3>
+            <p>Identify where there may be friction, uncertainty or room to strengthen the idea.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="section assess" id="assessment">
       <div class="section-inner">
         <div class="assess-copy reveal">
-          <h2>Ready to see your Backing Score?</h2>
+          <h2>How ready is your idea to be backed?</h2>
           <div class="prose">
             <p>Take a few minutes to look at your idea from a different perspective.</p>
             <p>There are no right or wrong answers. The aim is to give you a useful outside view of how ready your idea is to be understood, believed in and backed.</p>
           </div>
-          <a class="btn-primary" id="start-score" href="#backing-score-form">Start The Backing Score <span aria-hidden="true">→</span></a>
+          <a class="btn-primary" id="start-score" href="#backing-score-form">Get Your Backing Score <span aria-hidden="true">→</span></a>
         </div>
         <div class="tf-embed" id="backing-score-form" hidden></div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="section-inner brand-close">
+    <section class="section brand-further">
+      <div class="section-inner">
         <div class="reveal">
-          <h2>Need to make something important land?</h2>
+          <h2>Want to take it further?</h2>
           <p class="prose">Project Brand works with organisations on ideas, propositions, partnerships and campaigns that need to make an impact.</p>
           <a class="btn-ghost" href="index.html">Explore Project Brand <span aria-hidden="true">→</span></a>
         </div>
@@ -658,7 +706,7 @@
           <a href="https://www.linkedin.com/in/wesley-tam" target="_blank" rel="noopener">Wesley Tam</a>
         </div>
       </div>
-      <p class="privacy">The Backing Score is hosted through Typeform. What you submit is used to produce your result and, if you leave contact details, so Project Brand can follow up about the idea. Read the <a href="privacy.html">privacy page</a> for the full account.</p>
+      <p class="privacy">The Backing Score runs on Typeform. We use your answers to produce your result. If you leave contact details, Project Brand may follow up about the idea. The <a href="privacy.html">privacy page</a> explains this in full.</p>
       <p class="footer-copy">&#169; 2026 Project Brand. All Right Reserved</p>
     </div>
   </footer>
