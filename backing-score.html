@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Backing Score — Project Brand</title>
+  <meta name="description" content="The Backing Score is a short Project Brand diagnostic. Assess whether an important idea is clear enough to be understood, believed in and backed.">
+  <meta property="og:title" content="The Backing Score — Project Brand">
+  <meta property="og:description" content="A short diagnostic for ideas that need to be understood, believed in and backed.">
+  <meta property="og:url" content="https://www.theprojectbrand.com/backing-score">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="images/favi.png">
+  <link rel="canonical" href="https://www.theprojectbrand.com/backing-score">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:          #080809;
+      --bg-2:        #0f0f11;
+      --bg-3:        #161618;
+      --bg-card:     #141416;
+      --border:      rgba(255,255,255,0.07);
+      --border-h:    rgba(255,255,255,0.14);
+      --text-1:      #ffffff;
+      --text-2:      #a1a1aa;
+      --text-3:      #52525b;
+      --accent:      #C8E334;
+      --accent-glow: rgba(200,227,52,0.25);
+      --accent-sub:  rgba(200,227,52,0.08);
+      --r-sm: 6px;
+      --r-md: 12px;
+      --r-lg: 18px;
+      --r-xl: 24px;
+      --font-d: 'Inter Tight', system-ui, sans-serif;
+      --font-b: 'Inter', system-ui, sans-serif;
+      --font-m: 'IBM Plex Mono', monospace;
+      --nav-h: 72px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-b);
+      background: var(--bg);
+      color: var(--text-1);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+    img { display: block; max-width: 100%; }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 0);
+      background-size: 56px 56px;
+      pointer-events: none;
+      z-index: 0;
+    }
+    ::selection { background: var(--accent-sub); color: var(--accent); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 1s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      z-index: 900;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 60px;
+      background: rgba(8,8,9,0);
+      border-bottom: 1px solid transparent;
+      transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+    }
+    .nav.scrolled {
+      background: rgba(8,8,9,0.85);
+      border-color: var(--border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    .nav-logo {
+      position: absolute; left: 60px;
+      display: flex; align-items: center;
+    }
+    .nav-logo img { height: 36px; width: auto; }
+    .nav-links {
+      display: flex; align-items: center;
+      list-style: none;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 5px;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-2);
+      padding: 10px 18px;
+      display: block;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--text-1); }
+    .nav-cta {
+      position: absolute; right: 60px;
+      background: var(--accent);
+      color: #080809;
+      font-family: var(--font-d);
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      padding: 10px 20px;
+      border-radius: var(--r-sm);
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .nav-cta:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      position: absolute; right: 24px;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--text-1);
+      transition: all 0.3s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .nav-drawer {
+      display: none;
+      position: fixed; top: var(--nav-h); left: 0; right: 0;
+      background: rgba(8,8,9,0.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      z-index: 899;
+      padding: 16px 24px 28px;
+      flex-direction: column;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a {
+      padding: 14px 0;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-drawer a:last-child { border-bottom: none; }
+    .nav-drawer .nav-cta {
+      position: static;
+      margin-top: 16px;
+      text-align: center;
+      color: #080809;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 140px 60px 96px;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -15%; right: -8%;
+      width: 58vw; height: 58vw;
+      background: radial-gradient(circle, rgba(200,227,52,0.14) 0%, transparent 66%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .eyebrow {
+      font-family: var(--font-m);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .eyebrow::before {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--accent);
+    }
+    .hero h1 {
+      font-family: var(--font-d);
+      font-size: clamp(42px, 5.4vw, 84px);
+      font-weight: 800;
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      max-width: 14ch;
+      margin-bottom: 28px;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero-copy {
+      font-size: clamp(17px, 1.5vw, 20px);
+      color: var(--text-2);
+      max-width: 620px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+    .hero-copy + .hero-copy { margin-bottom: 36px; }
+    .hero-note {
+      margin-top: 16px;
+      font-family: var(--font-m);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #080809;
+      font-family: var(--font-d);
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      padding: 16px 28px;
+      border-radius: var(--r-sm);
+      display: inline-flex; align-items: center; gap: 10px;
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      opacity: 0.92;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px var(--accent-glow);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-1);
+      font-family: var(--font-d);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 15px 26px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border-h);
+      display: inline-flex; align-items: center; gap: 10px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    .section {
+      position: relative;
+      z-index: 1;
+      padding: 120px 60px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-inner { max-width: 1280px; margin: 0 auto; }
+    .section.alt { background: var(--bg-2); }
+    .section h2 {
+      font-family: var(--font-d);
+      font-size: clamp(34px, 4vw, 56px);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.02;
+      margin-bottom: 24px;
+    }
+    .section h2 span { color: var(--accent); }
+    .prose {
+      font-size: 18px;
+      color: var(--text-2);
+      line-height: 1.75;
+      max-width: 720px;
+    }
+    .prose p + p { margin-top: 18px; }
+    .split {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    .dim-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 18px;
+      margin-top: 48px;
+    }
+    .dim-card {
+      grid-column: span 2;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px 26px 30px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .dim-card:nth-child(4),
+    .dim-card:nth-child(5) { grid-column: span 3; }
+    .dim-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .dim-card:hover { border-color: var(--border-h); transform: translateY(-4px); }
+    .dim-card:hover::before { opacity: 1; }
+    .dim-index {
+      font-family: var(--font-m);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    .dim-card h3 {
+      font-family: var(--font-d);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 10px;
+    }
+    .dim-card p { font-size: 15px; color: var(--text-2); line-height: 1.65; }
+
+    .use-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 40px;
+    }
+    .use-item {
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 28px 24px;
+      background: rgba(255,255,255,0.02);
+      font-family: var(--font-d);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+    .use-line {
+      margin-top: 28px;
+      max-width: 640px;
+      color: var(--text-2);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 48px;
+    }
+    .step {
+      padding-top: 22px;
+      border-top: 1px solid var(--border-h);
+    }
+    .step-num {
+      font-family: var(--font-m);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .step h3 {
+      font-family: var(--font-d);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .step p { font-size: 15px; color: var(--text-2); line-height: 1.65; }
+
+    .assess {
+      background:
+        radial-gradient(circle at 80% 20%, rgba(200,227,52,0.12), transparent 36%),
+        var(--bg-2);
+    }
+    .assess-copy { max-width: 760px; }
+    .assess .prose { margin-bottom: 32px; }
+    .tf-embed {
+      margin-top: 48px;
+      min-height: 520px;
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      background: #fff;
+    }
+    .tf-embed[hidden] { display: none; }
+
+    .brand-close {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .brand-close .prose { margin-bottom: 28px; }
+
+    .footer {
+      position: relative;
+      z-index: 1;
+      padding: 48px 60px 36px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner { max-width: 1280px; margin: 0 auto; }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      align-items: flex-start;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .footer-logo img { height: 36px; width: auto; }
+    .footer-nav, .footer-meta {
+      display: flex; flex-wrap: wrap; gap: 10px 22px;
+    }
+    .footer-nav a, .footer-meta a {
+      font-size: 14px;
+      color: var(--text-2);
+    }
+    .footer-nav a:hover, .footer-meta a:hover { color: var(--accent); }
+    .privacy {
+      margin-top: 24px;
+      max-width: 760px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-3);
+    }
+    .privacy a { color: var(--text-2); text-decoration: underline; text-underline-offset: 3px; }
+    .footer-copy {
+      margin-top: 22px;
+      font-family: var(--font-m);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      color: var(--text-3);
+    }
+
+    @media (max-width: 1100px) {
+      .dim-card, .dim-card:nth-child(4), .dim-card:nth-child(5) { grid-column: span 3; }
+      .steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 900px) {
+      .nav-links, .nav .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav, .hero, .section, .footer { padding-left: 24px; padding-right: 24px; }
+      .nav-logo { left: 24px; }
+      .hero { min-height: auto; padding-top: 130px; padding-bottom: 72px; }
+      .section { padding-top: 80px; padding-bottom: 80px; }
+      .split, .brand-close, .footer-top { grid-template-columns: 1fr; display: grid; }
+      .use-grid { grid-template-columns: 1fr 1fr; }
+      .dim-grid { grid-template-columns: 1fr; }
+      .dim-card, .dim-card:nth-child(4), .dim-card:nth-child(5) { grid-column: auto; }
+    }
+    @media (max-width: 640px) {
+      .use-grid, .steps { grid-template-columns: 1fr; }
+      .hero h1 { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <a href="index.html" class="nav-logo">
+      <img src="images/logo1.png" alt="Project Brand">
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#why">Why Us</a></li>
+      <li><a href="index.html#story">Our Story</a></li>
+      <li><a href="index.html#what">What We Do</a></li>
+      <li><a href="index.html#work">Our Work</a></li>
+      <li><a href="index.html#tribe">The Tribe</a></li>
+    </ul>
+    <a href="#assessment" class="nav-cta">Take The Backing Score</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-drawer" id="drawer">
+    <a href="index.html#why">Why Us</a>
+    <a href="index.html#story">Our Story</a>
+    <a href="index.html#what">What We Do</a>
+    <a href="index.html#work">Our Work</a>
+    <a href="index.html#tribe">The Tribe</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="#assessment" class="nav-cta">Take The Backing Score</a>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Make It Land</p>
+        <h1>Does your idea have what it takes to be <span>backed?</span></h1>
+        <p class="hero-copy">The Backing Score is a short Project Brand diagnostic designed to help you assess whether an important idea is clear enough to be understood, believed in and backed.</p>
+        <p class="hero-copy">Whether you're preparing a launch, partnership proposition, commercial pitch, campaign or strategic idea, the assessment gives you a structured way to look at what could help your idea land.</p>
+        <a class="btn-primary" href="#assessment">Take The Backing Score <span aria-hidden="true">→</span></a>
+        <p class="hero-note">A short assessment. A clearer view.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner split">
+        <h2 class="reveal">Good ideas don't always get backed.</h2>
+        <div class="prose reveal reveal-delay-1">
+          <p>An idea can be strong and still struggle to get the support it needs.</p>
+          <p>Sometimes the challenge isn't the idea itself. It's whether people understand it, see the value, believe in it or feel confident enough to support the decision.</p>
+          <p>The Backing Score gives you an outside perspective on some of the factors that can influence whether an important idea gets understood, believed in and backed.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="section-inner split">
+        <h2 class="reveal">Make it clear. Make it matter. <span>Make it land.</span></h2>
+        <div class="prose reveal reveal-delay-1">
+          <p>The Backing Score sits within Project Brand's wider Make It Land point of view.</p>
+          <p>Because important ideas don't just need to be good. They need to make sense to the people you're asking to understand them, support them, approve them, invest in them or act on them.</p>
+          <p>The assessment helps identify where your idea is already strong and where there may be friction worth addressing.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="dimensions">
+      <div class="section-inner">
+        <h2 class="reveal">What makes an idea easier to back?</h2>
+        <p class="prose reveal">The Backing Score looks at five things that shape whether people can understand an idea, believe in it, and feel ready to support it.</p>
+        <div class="dim-grid">
+          <article class="dim-card reveal">
+            <p class="dim-index">01</p>
+            <h3>Clarity</h3>
+            <p>Is the idea easy to understand?</p>
+          </article>
+          <article class="dim-card reveal reveal-delay-1">
+            <p class="dim-index">02</p>
+            <h3>Proposition</h3>
+            <p>Is the value clear and compelling?</p>
+          </article>
+          <article class="dim-card reveal reveal-delay-2">
+            <p class="dim-index">03</p>
+            <h3>Belief</h3>
+            <p>Is there enough substance to make people believe in it?</p>
+          </article>
+          <article class="dim-card reveal">
+            <p class="dim-index">04</p>
+            <h3>Relevance</h3>
+            <p>Does it matter to the people whose support you need?</p>
+          </article>
+          <article class="dim-card reveal reveal-delay-1">
+            <p class="dim-index">05</p>
+            <h3>Confidence</h3>
+            <p>Are there obvious reasons for people to hesitate, question or delay?</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="section-inner">
+        <h2 class="reveal">What are you trying to make land?</h2>
+        <div class="use-grid">
+          <div class="use-item reveal">Launches</div>
+          <div class="use-item reveal">Partnerships</div>
+          <div class="use-item reveal">Commercial pitches</div>
+          <div class="use-item reveal">Campaigns</div>
+          <div class="use-item reveal">Strategic initiatives</div>
+          <div class="use-item reveal">Important ideas</div>
+        </div>
+        <p class="use-line reveal">If something important needs to be understood, believed in and backed, The Backing Score can give you a useful place to start.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner">
+        <h2 class="reveal">A short assessment. A clearer view.</h2>
+        <div class="steps">
+          <article class="step reveal">
+            <p class="step-num">01</p>
+            <h3>Tell us about it</h3>
+            <p>Answer a few questions about the idea, proposition, launch or opportunity.</p>
+          </article>
+          <article class="step reveal reveal-delay-1">
+            <p class="step-num">02</p>
+            <h3>Assess it</h3>
+            <p>The Backing Score looks at the factors that can influence whether an idea lands.</p>
+          </article>
+          <article class="step reveal">
+            <p class="step-num">03</p>
+            <h3>See where you stand</h3>
+            <p>Get an indication of your strengths and areas worth examining.</p>
+          </article>
+          <article class="step reveal reveal-delay-1">
+            <p class="step-num">04</p>
+            <h3>Decide what needs attention</h3>
+            <p>Use the result to think about what may need more work before asking others to back the idea.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section assess" id="assessment">
+      <div class="section-inner">
+        <div class="assess-copy reveal">
+          <h2>Ready to see your Backing Score?</h2>
+          <div class="prose">
+            <p>Take a few minutes to look at your idea from a different perspective.</p>
+            <p>There are no right or wrong answers. The aim is to give you a useful outside view of how ready your idea is to be understood, believed in and backed.</p>
+          </div>
+          <a class="btn-primary" id="start-score" href="#backing-score-form">Start The Backing Score <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="tf-embed" id="backing-score-form" hidden></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-inner brand-close">
+        <div class="reveal">
+          <h2>Need to make something important land?</h2>
+          <p class="prose">Project Brand works with organisations on ideas, propositions, partnerships and campaigns that need to make an impact.</p>
+          <a class="btn-ghost" href="index.html">Explore Project Brand <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <a href="index.html" class="footer-logo">
+          <img src="images/logo1.png" alt="Project Brand">
+        </a>
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="index.html">Home</a>
+          <a href="index.html#why">Why Us</a>
+          <a href="index.html#what">What We Do</a>
+          <a href="index.html#work">Our Work</a>
+          <a href="index.html#tribe">The Tribe</a>
+          <a href="index.html#contact">Contact</a>
+          <a href="privacy.html">Privacy</a>
+        </nav>
+        <div class="footer-meta">
+          <a href="mailto:sarah@theprojectbrand.com">sarah@theprojectbrand.com</a>
+          <a href="https://www.linkedin.com/in/samundy" target="_blank" rel="noopener">Sarah Mundy</a>
+          <a href="https://www.linkedin.com/in/wesley-tam" target="_blank" rel="noopener">Wesley Tam</a>
+        </div>
+      </div>
+      <p class="privacy">The Backing Score is hosted through Typeform. What you submit is used to produce your result and, if you leave contact details, so Project Brand can follow up about the idea. Read the <a href="privacy.html">privacy page</a> for the full account.</p>
+      <p class="footer-copy">&#169; 2026 Project Brand. All Right Reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    // Paste the Typeform form ID here to connect the assessment.
+    const TYPEFORM_ID = "";
+
+    const nav = document.getElementById("nav");
+    window.addEventListener("scroll", () => {
+      nav.classList.toggle("scrolled", window.scrollY > 40);
+    }, { passive: true });
+
+    const hamburger = document.getElementById("hamburger");
+    const drawer = document.getElementById("drawer");
+    hamburger.addEventListener("click", () => {
+      const open = drawer.classList.toggle("open");
+      hamburger.classList.toggle("open", open);
+      hamburger.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    drawer.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        drawer.classList.remove("open");
+        hamburger.classList.remove("open");
+        hamburger.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    const revealEls = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.16 });
+    revealEls.forEach((el) => observer.observe(el));
+
+    const embed = document.getElementById("backing-score-form");
+    const start = document.getElementById("start-score");
+    if (TYPEFORM_ID) {
+      embed.hidden = false;
+      embed.setAttribute("data-tf-live", TYPEFORM_ID);
+      const script = document.createElement("script");
+      script.src = "https://embed.typeform.com/next/embed.js";
+      document.body.appendChild(script);
+      start.href = "#backing-score-form";
+    } else {
+      start.href = "#assessment";
+    }
+  </script>
+</body>
+</html>
