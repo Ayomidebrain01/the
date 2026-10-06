@@ -1602,7 +1602,22 @@
       .tribe-bio { font-size: 14px; line-height: 1.6; margin-bottom: 0; flex: 1; }
       .tribe-role { margin-bottom: 0px; }
       .tribe-name { margin-bottom: 2px; }
-      .logo-box img { height: 32px !important; }
+      .logo-strip::before,
+      .logo-strip::after { width: 24px; }
+      .logo-box { padding: 0 22px; }
+      .logo-box img,
+      .logo-box img[src*="sarac"],
+      .logo-box img[src*="Springboks"],
+      .logo-box img[src*="Treble"],
+      .logo-box img[src*="nb-logo"],
+      .logo-box img[src*="DHL"],
+      .logo-box img[src*="YMS"],
+      .logo-box img[src*="kade-logo"] {
+        height: 34px !important;
+        max-width: 128px !important;
+        width: auto !important;
+        object-fit: contain;
+      }
       .cms-kaizen-badge {
         margin-top: 24px;
         padding: 16px 20px;
@@ -2125,8 +2140,8 @@
             <div class="tribe-img"><img src="images/Maverick.webp" alt="Maverick" class="cms-img-tribe"></div>
             <div class="tribe-content">
               <h3 class="tribe-name">Maverick</h3>
-              <p class="tribe-role">Studio Mascot</p>
-              <p class="tribe-bio">Chief morale officer. Terrible at deadlines. Excellent at naps.</p>
+              <p class="tribe-role">Director of Vibes</p>
+              <p class="tribe-bio">Every studio needs one. Ours has four legs and has never missed a lunch.</p>
             </div>
           </article>
         </div>
