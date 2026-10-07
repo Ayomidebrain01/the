@@ -519,7 +519,7 @@
       <li><a href="index.html#work">Our Work</a></li>
       <li><a href="index.html#tribe">The Tribe</a></li>
     </ul>
-    <a href="#assessment" class="nav-cta">Take The Backing Score</a>
+    <a href="assessment.html" class="nav-cta">Take The Backing Score</a>
     <button class="nav-hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -531,7 +531,7 @@
     <a href="index.html#work">Our Work</a>
     <a href="index.html#tribe">The Tribe</a>
     <a href="index.html#contact">Contact</a>
-    <a href="#assessment" class="nav-cta">Take The Backing Score</a>
+    <a href="assessment.html" class="nav-cta">Take The Backing Score</a>
   </div>
 
   <main>
@@ -541,8 +541,8 @@
         <h1>Does your idea have what it takes to be <span>backed?</span></h1>
         <p class="hero-copy">The Backing Score is a short Project Brand diagnostic that helps you assess whether an important idea is clear enough to be understood, believed in and backed.</p>
         <p class="hero-copy">Whether you're preparing a launch, partnership proposition, commercial pitch, campaign or strategic idea, the assessment gives you a structured way to look at what could help your idea land.</p>
-        <a class="btn-primary" href="#assessment">Take The Backing Score <span aria-hidden="true">→</span></a>
-        <p class="hero-note">A short assessment. A clearer view.</p>
+        <a class="btn-primary" href="assessment.html">Take The Backing Score <span aria-hidden="true">→</span></a>
+        <p class="hero-note">Just 9 questions. A clearer view.</p>
         <p class="hero-authority">Built by Project Brand from years of working across brands, rights holders, agencies and athletes.</p>
       </div>
     </section>
@@ -692,10 +692,9 @@
       <div class="section-inner">
         <div class="assess-copy reveal">
           <h2>Ready to see how your idea stands up?</h2>
-          <a class="btn-primary" id="start-score" href="#backing-score-form">Start The Backing Score <span aria-hidden="true">→</span></a>
-          <p class="assess-credit">Developed by Project Brand as part of our Make It Land point of view.</p>
+          <a class="btn-primary" href="assessment.html">Start The Backing Score <span aria-hidden="true">→</span></a>
+          <p class="assess-credit">Just 9 questions. Developed by Project Brand as part of our Make It Land point of view.</p>
         </div>
-        <div class="tf-embed" id="backing-score-form" hidden></div>
       </div>
     </section>
   </main>
@@ -721,15 +720,12 @@
           <a href="https://www.linkedin.com/in/wesley-tam" target="_blank" rel="noopener">Wesley Tam</a>
         </div>
       </div>
-      <p class="privacy">The Backing Score runs on Typeform. We use your answers to produce your result. If you leave contact details, Project Brand may follow up about the idea. The <a href="privacy.html">privacy page</a> explains this in full.</p>
+      <p class="privacy">The Backing Score runs on this site. We use your answers to produce your result. If you leave contact details, Project Brand may follow up about the idea. The <a href="privacy.html">privacy page</a> explains this in full.</p>
       <p class="footer-copy">&#169; 2026 Project Brand. All Right Reserved</p>
     </div>
   </footer>
 
   <script>
-    // Paste the Typeform form ID here to connect the assessment.
-    const TYPEFORM_ID = "";
-
     const nav = document.getElementById("nav");
     window.addEventListener("scroll", () => {
       nav.classList.toggle("scrolled", window.scrollY > 40);
@@ -760,19 +756,6 @@
       });
     }, { threshold: 0.16 });
     revealEls.forEach((el) => observer.observe(el));
-
-    const embed = document.getElementById("backing-score-form");
-    const start = document.getElementById("start-score");
-    if (TYPEFORM_ID) {
-      embed.hidden = false;
-      embed.setAttribute("data-tf-live", TYPEFORM_ID);
-      const script = document.createElement("script");
-      script.src = "https://embed.typeform.com/next/embed.js";
-      document.body.appendChild(script);
-      start.href = "#backing-score-form";
-    } else {
-      start.href = "#assessment";
-    }
   </script>
 </body>
 </html>

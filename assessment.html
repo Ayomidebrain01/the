@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Backing Score — Project Brand</title>
+  <meta name="description" content="A short Project Brand assessment of how ready an idea is to be understood, believed in and backed.">
+  <link rel="icon" type="image/png" href="images/favi.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080809;
+      --bg-2: #0f0f11;
+      --bg-card: #141416;
+      --border: rgba(255,255,255,0.07);
+      --border-h: rgba(255,255,255,0.16);
+      --text-1: #ffffff;
+      --text-2: #a1a1aa;
+      --text-3: #52525b;
+      --accent: #C8E334;
+      --accent-glow: rgba(200,227,52,0.25);
+      --font-d: 'Inter Tight', system-ui, sans-serif;
+      --font-b: 'Inter', system-ui, sans-serif;
+      --font-m: 'IBM Plex Mono', monospace;
+      --nav-h: 72px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-b);
+      background: var(--bg);
+      color: var(--text-1);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 0);
+      background-size: 56px 56px;
+      pointer-events: none;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; border: none; background: none; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .nav {
+      position: sticky; top: 0; z-index: 5;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px;
+      background: rgba(8,8,9,0.88);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+    }
+    .nav img { height: 34px; width: auto; }
+    .nav-back { font-size: 14px; color: var(--text-2); }
+    .nav-back:hover { color: var(--accent); }
+    main {
+      position: relative;
+      width: min(760px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 48px 0 80px;
+    }
+    main.result-open { width: min(980px, calc(100% - 40px)); }
+    .stage { animation: rise 0.45s ease; }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .stage { animation: none; }
+    }
+    .eyebrow {
+      font-family: var(--font-m);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-family: var(--font-d);
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 0.98;
+      margin-bottom: 20px;
+    }
+    .lede {
+      font-size: 18px;
+      color: var(--text-2);
+      max-width: 620px;
+      margin-bottom: 32px;
+    }
+    .progress {
+      font-family: var(--font-m);
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      color: var(--text-3);
+      margin-bottom: 22px;
+    }
+    .question {
+      font-family: var(--font-d);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+      margin-bottom: 12px;
+    }
+    .helper { color: var(--text-2); margin-bottom: 22px; }
+    .choices { display: grid; gap: 10px; }
+    .choice {
+      text-align: left;
+      width: 100%;
+      min-height: 52px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .choice:hover { border-color: var(--border-h); }
+    .choice[aria-checked="true"] {
+      border-color: var(--accent);
+      background: rgba(200,227,52,0.08);
+    }
+    .other {
+      margin-top: 10px;
+    }
+    .field { margin-bottom: 16px; }
+    label.lbl {
+      display: block;
+      font-family: var(--font-m);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    input, textarea {
+      width: 100%;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      outline: none;
+    }
+    textarea { min-height: 150px; resize: vertical; line-height: 1.6; }
+    input:focus, textarea:focus { border-color: var(--accent); }
+    .count {
+      margin-top: 8px;
+      font-family: var(--font-m);
+      font-size: 11px;
+      color: var(--text-3);
+    }
+    .note {
+      min-height: 1.4em;
+      margin-top: 14px;
+      color: var(--accent);
+      font-size: 14px;
+    }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .btn {
+      font-family: var(--font-d);
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 14px 22px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary { background: var(--accent); color: #080809; }
+    .btn-primary:hover { box-shadow: 0 10px 28px var(--accent-glow); }
+    .btn-ghost { color: var(--text-2); border: 1px solid var(--border-h); }
+    .btn-ghost:hover { color: var(--accent); border-color: var(--accent); }
+    .score-num {
+      font-family: var(--font-d);
+      font-size: clamp(72px, 12vw, 120px);
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      line-height: 0.85;
+      margin: 8px 0 12px;
+    }
+    .band {
+      font-family: var(--font-d);
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .lead { font-size: 18px; color: var(--text-2); max-width: 680px; margin-bottom: 40px; }
+    .lenses { display: grid; gap: 14px; margin-bottom: 48px; }
+    .lens {
+      padding: 18px 0;
+      border-top: 1px solid var(--border);
+    }
+    .lens-top { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
+    .lens h3 { font-family: var(--font-d); font-size: 20px; letter-spacing: -0.02em; }
+    .lens-score { font-family: var(--font-m); color: var(--text-2); }
+    .bar { height: 3px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+    .bar span { display: block; height: 100%; background: var(--accent); }
+    .lens p { color: var(--text-2); margin-top: 8px; }
+    .focus h2, .moves h2 {
+      font-family: var(--font-d);
+      font-size: clamp(28px, 4vw, 40px);
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+      margin-bottom: 12px;
+    }
+    .focus { margin-bottom: 36px; max-width: 680px; }
+    .moves { margin-bottom: 36px; max-width: 680px; }
+    .moves li { color: var(--text-2); margin-left: 18px; margin-top: 8px; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    @media (max-width: 640px) {
+      .nav { padding: 0 16px; }
+      .actions { flex-direction: column-reverse; }
+      .actions .btn { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="backing-score.html"><img src="images/logo1.png" alt="Project Brand"></a>
+    <a class="nav-back" href="backing-score.html">The Backing Score</a>
+  </nav>
+  <main id="app"></main>
+  <script src="js/backing-score.js"></script>
+  <script>
+    const BACKING_SCORE_ENDPOINT = "https://script.google.com/macros/s/AKfycbwqW9khjEOWQ8Z4lMXUiSNYUAiKm5MWekLdSV0WQvmo8-f0QsGDaCev7GzygBKASHsOfA/exec";
+    const app = document.getElementById("app");
+    const questions = BackingScore.QUESTIONS;
+    const answers = {};
+    const contact = {};
+    const submissionId = crypto.randomUUID();
+    const details = [
+      { id: "name", prompt: "What's your name?", helper: "So we know who to speak with." },
+      { id: "email", prompt: "What's the best email for you?", helper: "We'll use it only to talk through this result.", type: "email" }
+    ];
+    let step = -1;
+    let detail = 0;
+    let result = null;
+
+    function pad(n) {
+      return String(n).padStart(2, "0");
+    }
+
+    function selected(question) {
+      return answers[question.id];
+    }
+
+    function otherKey(id) {
+      return id + "Other";
+    }
+
+    function render(html) {
+      app.innerHTML = '<div class="stage">' + html + "</div>";
+    }
+
+    function chosenList(question) {
+      const value = answers[question.id];
+      if (Array.isArray(value)) return value.filter(Boolean);
+      return value ? [value] : [];
+    }
+
+    function choiceButtons(question) {
+      const many = question.kind === "choice";
+      return question.options.map(function (option, index) {
+        const scale = question.kind === "scale";
+        const value = scale ? String(index + 1) : (typeof option === "string" ? option : option.value);
+        const label = typeof option === "string" ? option : option.label;
+        const on = many ? chosenList(question).indexOf(value) !== -1 : String(selected(question) || "") === value;
+        return '<button class="choice" type="button" role="' + (many ? "checkbox" : "radio") + '" aria-checked="' + on + '" data-value="' + escapeAttr(value) + '">' + escapeHtml(label) + "</button>";
+      }).join("");
+    }
+
+    function showQuestion() {
+      const question = questions[step];
+      app.classList.remove("result-open");
+      const other = question.options && question.options.some(function (option) {
+        return option === "Other" || option.value === "Other";
+      });
+      let body = "";
+      if (question.kind === "text") {
+        const value = answers[question.id] || "";
+        body =
+          '<p class="helper">' + escapeHtml(question.helper) + "</p>" +
+          '<textarea id="answer" maxlength="' + question.max + '">' + escapeHtml(value) + "</textarea>" +
+          '<p class="count" id="count"></p>';
+      } else {
+        const many = question.kind === "choice";
+        if (question.helper) body += '<p class="helper">' + escapeHtml(question.helper) + "</p>";
+        body += '<div class="choices" role="' + (many ? "group" : "radiogroup") + '" aria-label="' + escapeAttr(question.prompt) + '">' + choiceButtons(question) + "</div>";
+        if (other) {
+          const shown = many ? chosenList(question).indexOf("Other") !== -1 : selected(question) === "Other";
+          body += '<div class="other" id="other-slot"' + (shown ? "" : " hidden") + '><input id="other" type="text" maxlength="80" placeholder="Tell us briefly" value="' + escapeAttr(answers[otherKey(question.id)] || "") + '"></div>';
+        }
+      }
+      render(
+        '<p class="progress">Just ' + questions.length + " questions · " + pad(step + 1) + " / " + pad(questions.length) + "</p>" +
+        '<h2 class="question">' + escapeHtml(question.prompt) + "</h2>" +
+        body +
+        '<p class="note" id="note" role="status"></p>' +
+        '<div class="actions"><button class="btn btn-ghost" id="back" type="button">Back</button><button class="btn btn-primary" id="next" type="button">Continue</button></div>'
+      );
+      bindQuestion(question);
+    }
+
+    function bindQuestion(question) {
+      document.getElementById("back").addEventListener("click", function () {
+        if (step === 0) { window.location.href = "backing-score.html"; return; }
+        else { step -= 1; showQuestion(); }
+      });
+      document.getElementById("next").addEventListener("click", advance);
+      if (question.kind === "text") {
+        const field = document.getElementById("answer");
+        const count = document.getElementById("count");
+        const update = function () {
+          count.textContent = field.value.trim().length + " / " + question.max;
+        };
+        field.addEventListener("input", update);
+        update();
+        field.focus();
+      } else {
+        document.querySelectorAll(".choice").forEach(function (button) {
+          button.addEventListener("click", function () {
+            const value = button.getAttribute("data-value");
+            if (question.kind === "choice") {
+              const current = chosenList(question);
+              const index = current.indexOf(value);
+              if (index === -1) current.push(value);
+              else current.splice(index, 1);
+              answers[question.id] = current;
+              button.setAttribute("aria-checked", index === -1 ? "true" : "false");
+              const slot = document.getElementById("other-slot");
+              if (slot) slot.hidden = current.indexOf("Other") === -1;
+              if (index === -1 && value === "Other") {
+                const field = document.getElementById("other");
+                if (field) field.focus();
+              }
+              return;
+            }
+            answers[question.id] = value;
+            document.querySelectorAll(".choice").forEach(function (item) {
+              item.setAttribute("aria-checked", item === button ? "true" : "false");
+            });
+          });
+        });
+        const other = document.getElementById("other");
+        if (other) {
+          other.addEventListener("input", function () {
+            answers[otherKey(question.id)] = other.value;
+          });
+        }
+      }
+    }
+
+    function advance() {
+      const question = questions[step];
+      const note = document.getElementById("note");
+      if (question.kind === "text") {
+        answers[question.id] = document.getElementById("answer").value.trim();
+        const length = answers[question.id].length;
+        if (length < question.min) {
+          note.textContent = "A little more detail will make this more useful. Aim for at least a couple of sentences.";
+          return;
+        }
+        if (length > question.max) {
+          note.textContent = "Shorten this slightly so the important part stays clear.";
+          return;
+        }
+      } else if (question.kind === "choice" ? !chosenList(question).length : !answers[question.id]) {
+        note.textContent = question.kind === "choice" ? "Choose every option that fits." : "Choose the option that fits best.";
+        return;
+      } else if ((question.kind === "choice" ? chosenList(question).indexOf("Other") !== -1 : answers[question.id] === "Other") && !(answers[otherKey(question.id)] || "").trim()) {
+        const other = document.getElementById("other");
+        if (other) answers[otherKey(question.id)] = other.value;
+        if (!(answers[otherKey(question.id)] || "").trim()) {
+          note.textContent = "Add a few words so we know what you mean by other.";
+          return;
+        }
+      }
+      if (step < questions.length - 1) {
+        step += 1;
+        showQuestion();
+        return;
+      }
+      finish();
+    }
+
+    function showDetail() {
+      const item = details[detail];
+      app.classList.remove("result-open");
+      render(
+        '<p class="progress">So we can talk this through</p>' +
+        '<h2 class="question">' + escapeHtml(item.prompt) + "</h2>" +
+        '<p class="helper">' + escapeHtml(item.helper) + "</p>" +
+        '<input id="detail" type="' + (item.type || "text") + '" value="' + escapeAttr(contact[item.id] || "") + '">' +
+        '<p class="note" id="note" role="status"></p>' +
+        '<div class="actions"><button class="btn btn-ghost" id="back" type="button">Back</button><button class="btn btn-primary" id="next" type="button">Continue</button></div>'
+      );
+      const field = document.getElementById("detail");
+      field.focus();
+      document.getElementById("back").addEventListener("click", function () {
+        contact[item.id] = field.value.trim();
+        if (detail === 0) showResult(result);
+        else { detail -= 1; showDetail(); }
+      });
+      document.getElementById("next").addEventListener("click", function () {
+        contact[item.id] = field.value.trim();
+        const note = document.getElementById("note");
+        if (item.id === "name" && !contact.name) {
+          note.textContent = "Add your name so we know who to speak with.";
+          return;
+        }
+        if (item.id === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) {
+          note.textContent = "That email doesn't look quite right.";
+          return;
+        }
+        if (detail < details.length - 1) {
+          detail += 1;
+          showDetail();
+          return;
+        }
+        answers.followUp = "talk";
+        showResult(result);
+        submit(result);
+      });
+    }
+
+    function finish() {
+      result = BackingScore.scoreAssessment(answers);
+      answers.followUp = "later";
+      showResult(result);
+      submit(result);
+    }
+
+    function showResult(result) {
+      app.classList.add("result-open");
+      const lenses = result.dimensions.map(function (item) {
+        return '<article class="lens"><div class="lens-top"><h3>' + item.name + '</h3><span class="lens-score">' + item.score + '</span></div><div class="bar"><span style="width:' + item.score + '%"></span></div></article>';
+      }).join("");
+      const moves = result.nextMoves.map(function (line) {
+        return "<li>" + escapeHtml(line) + "</li>";
+      }).join("");
+      render(
+        '<p class="eyebrow">Your Backing Score</p>' +
+        '<p class="score-num">' + result.overall + "</p>" +
+        '<p class="band">' + escapeHtml(result.band.label) + "</p>" +
+        '<p class="lead">' + escapeHtml(result.lead) + "</p>" +
+        '<section class="focus"><h2>What this is telling us</h2><p class="lede">' + escapeHtml(result.reading) + "</p></section>" +
+        '<div class="lenses">' + lenses +
+          '<article class="lens"><div class="lens-top"><h3>Proposition</h3></div><p>' + escapeHtml(result.proposition) + "</p></article>" +
+        "</div>" +
+        '<section class="focus"><h2>Where we\'d focus first</h2><p class="lede">' + escapeHtml(result.focus) + "</p></section>" +
+        '<section class="moves"><h2>Your next move</h2><ul>' + moves + "</ul></section>" +
+        '<div class="cta-row">' +
+          (contact.email
+            ? '<a class="btn btn-primary" href="index.html#contact">Talk to Project Brand</a>'
+            : '<button class="btn btn-primary" id="talk" type="button">Talk this through</button>') +
+          '<a class="btn btn-ghost" href="backing-score.html">Explore Make It Land</a></div>'
+      );
+      const talk = document.getElementById("talk");
+      if (talk) {
+        talk.addEventListener("click", function () {
+          detail = 0;
+          showDetail();
+        });
+      }
+    }
+
+    function submit(result) {
+      if (!BACKING_SCORE_ENDPOINT) return;
+      const row = BackingScore.sheetRow(answers, contact, result, submissionId);
+      const body = new URLSearchParams();
+      body.set("payload", JSON.stringify({ values: BackingScore.rowValues(row) }));
+      fetch(BACKING_SCORE_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString()
+      }).catch(function (error) {
+        console.error("Backing Score save failed", error);
+      });
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value).replace(/"/g, "&quot;");
+    }
+
+    step = 0;
+    showQuestion();
+  </script>
+</body>
+</html>
